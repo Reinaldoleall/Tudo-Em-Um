@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Manuais - Panasonic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+        
+        
+         /* Campo de busca */
+        #searchInput {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            margin: 20px auto;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            display: block;
+        }
+
+        #searchInput:focus {
+            border-color: #0056b3;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #searchInput::placeholder {
+            color: #aaa;
+        }
+
+        /* Sugestões de pesquisa */
+        .suggestions {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background-color: #fff;
+            width: 80%;
+            max-width: 600px;
+            z-index: 1000;
+            display: none;
+            margin-top: -20px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestions li {
+            padding: 10px;
+            cursor: pointer;
+            list-style-type: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .suggestions {
+    background-color: #f9f9f9; /* Fundo mais claro */
+}
+
+.suggestions li {
+    color: #000; /* Texto preto */
+}
+
+        .suggestions li:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Seções de produtos */
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .tutorial-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tutorial-item {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .tutorial-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .tutorial-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .tutorial-item p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Botões */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .share-btn {
+            background-color: #25D366;
+        }
+
+        .share-btn:hover {
+            background-color: #128C7E;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            #searchInput {
+                width: 90%;
+            }
+
+            .tutorial-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Manuais</h1>
+        <p>Baixe ou compartilhe o manual do produto</p>
+        
+        <ul id="suggestionsList" class="suggestions"></ul>
+    </header>
+    <input type="text" id="searchInput" placeholder="Pesquisar produto..." onkeyup="suggestProducts()">
+
+    <section id="microondas">
+        <h2>Microondas</h2>
+        <div class="tutorial-gallery">
+            <div class="tutorial-item">
+                <h3>NN-ST25L/NN-ST27L</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1uXOiF76vX8zszK_FXbYpoBId5bSDkQRb/view?usp=drivesdk" class="btn">Baixar manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NN-ST25L/NN-ST27L: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/11414509103636/20221206_ST25LW_ST27LW_BQF0542B_A4.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NN-ST55L</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1uaCQG83s3rc3Qa-nWdjqCUmCmkSxwx_G/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NN-ST55L: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360094078352/NN-ST55LMRU.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NN-ST61N/ST65L/ST66/ST67</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1ubLrsB61wQ-J4iLe_0sliMGL_TUbXEVP/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NN-ST61N/ST65L/ST66/ST67: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/18078469562772')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NN-GT68L</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1udY4Jtb7znHKreQ6-PFhCWoGIgr-pBvd/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NN-GT68L: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360094013931/NN-GT68LBRU.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>CD89N</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1ufeINYMIcVHHv1en22MkK_nNxPxsufx4/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual CD89N: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/14759136704660')">Compartilhar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="lavadoras">
+        <h2>Lavadoras</h2>
+        <div class="tutorial-gallery">
+            <div class="tutorial-item">
+                <h3>NA-F120B1W/F130/F140</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1uumQhsVPoWC4ls5P13x_WR_iqZohemx9/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NA-F120B1W/F130/F140: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/17162338023060/MI_NA-F120B1_F130B1_F140B1.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NA-F120B1T</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1unlUAs98Y483qgvAp351s_GIwSmGPSEe/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NA-F120B1T: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360081012651/NA-F120B1T.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NA-F160B6</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vX45Zh0TDnx3bwj7HgTZH9W6jfkUmep_/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NA-F160B6: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360093338412/NA-F160B6W.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NA-F170B7</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1v1jF4eRNld4JSuSwgiaQsLdNgUnox5a0/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NA-F170B7: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/14956102382228')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NA-F180P7</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1v7jpBYciW971JQnlqUoIz_nqRqI3S5DI/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NA-F180P7: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/14956021001876')">Compartilhar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="geladeiras">
+        <h2>Geladeiras</h2>
+        <div class="tutorial-gallery">
+            <div class="tutorial-item">
+                <h3>NR-BT41W</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vdqO9d7bNDEMTJ7-LShdW2bskgmNRRmr/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BT41W: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/19524305364244')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BT41X</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vBeK6Q7CrGeETEkGJCWeBwjM9Ezj86Jj/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BT41X: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/19523713080980')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BT50BD3W</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vBqd4npGWGWLWH9ezECDunCw4jpO_Hw3/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BT50BD3W: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/15509638017556/NR-BT50BD3X.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BT50BD3X</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vBqd4npGWGWLWH9ezECDunCw4jpO_Hw3/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BT50BD3X: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/15509638017556/NR-BT50BD3X.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BT55PV2W</h3>
+                <p>Clique no link abaixo para baixar</p>
+                                <a href="https://drive.google.com/file/d/1vFYZujqakvfMZYVn5Oa_fSx8sSnFa-Zv/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BT55PV2X: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/15512274367380/NR-BT55PV2X.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB41T</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vGt5E9ydiJ7bu9CAuA1Sg8FLYsgP1EIp/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB41T: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/19523759742484')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB41G</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vGt5E9ydiJ7bu9CAuA1Sg8FLYsgP1EIp/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB41G: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/19523759742484')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB53PV3W</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vL3QTBSgq_QQFk4MJ_qSB0cBLE9bx_aV/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB53PV3W: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/19523657780756')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB53PV3X</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vL3QTBSgq_QQFk4MJ_qSB0cBLE9bx_aV/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB53PV3X: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/19523657821588')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB53PV3T</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vL3QTBSgq_QQFk4MJ_qSB0cBLE9bx_aV/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB53PV3T: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360056633592/NR-BB53PV3.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB53GV3B</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vL3QTBSgq_QQFk4MJ_qSB0cBLE9bx_aV/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB53GV3B: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360056633712/NR-BB53GV3.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB53GV3M</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vL3QTBSgq_QQFk4MJ_qSB0cBLE9bx_aV/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB53GV3M: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360056633712/NR-BB53GV3.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB65GVFB</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vSfjr9rpu7H0bC0SQugJlKuHTj06d7gj/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB65GVFB: https://drive.google.com/file/d/1seZLbU0SHAxuLr97R6nvo5F8XNHUJFir/view?usp=drivesdk')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB65GVFM</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="javascript:void(0);" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB65GVFM: Ainda não disponibilizado, aguarde!')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB64PV1X</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="javascript:void(0);" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB64PV1X: Ainda não disponibilizado, aguarde!')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB64PV1B</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vSfjr9rpu7H0bC0SQugJlKuHTj06d7gj/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB64PV1B: https://drive.google.com/file/d/1seZLbU0SHAxuLr97R6nvo5F8XNHUJFir/view?usp=drivesdk')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB71PVFX</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vVh2gpAUvwef6QG2sdmNXg1wuM8-mZf3/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB71PVFX: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/15509062998932/NR-BB71PVFX.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NR-BB71GVFB</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vVh2gpAUvwef6QG2sdmNXg1wuM8-mZf3/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NR-BB71GVFB: https://panasonic.com/content/dam/Panasonic/br/pt/PDF/PDF-2021/Manual%20BB71.pdf')">Compartilhar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="built-in">
+        <h2>Built-in</h2>
+        <div class="tutorial-gallery">
+            <div class="tutorial-item">
+                <h3>HL-CX672BRPK</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1wN5xYjcPJGkUW3KYH8ldsHNfEJPgek8p/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual HL-CX672BRPK: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/16315793134868')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>FV-9HSDB2</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/4418829020052/MI_FV-9HSDB2.pdf" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual FV-9HSDB2: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/4418829020052/MI_FV-9HSDB2.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NP-6M2FTKBRP</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1wLgLgie0cv7fHCHElFIyIXqkEbLmaKIw/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NP-6M2FTKBRP: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/4404382126868/NP-6M2FTKBRP.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NP-6M1MBKBRP</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1wK1BakYsk8Lr7M-pVTEaofC_ZUiq6Nsc/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NP-6M1MBKBRP: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/4418829413652/MI__NP-6M1MBKBRP.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>KY-W648CLRPK</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1wBSXeGgTOEPBGW4MrUYGSlPysF_Rr5bx/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual KY-W648CLRPK: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/360087459992/KY-W648CLRPK.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>HL-CX668SRPK</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1w1yIqcpY64YGjKjM4UKQEnTtxKUy9ghN/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual HL-CX668SRPK: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/4406292546452/HL-CX668SRPK.pdf')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>KY-T937XLRPK</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vrMLnfWxsSPXl_ciFxhTwuEeb-NhX9SH/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual KY-T937XLRPK: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/4404382021140')">Compartilhar</a>
+            </div>
+            <div class="tutorial-item">
+                <h3>NN-GB68HSRUK</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1vkv0QG5dRfUHneuLs2Tbf4oeiLkSzDym/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual NN-GB68HSRUK: https://panasonic-br.zendesk.com/hc/pt-br/article_attachments/8315801961364/NN-GB68HSRUK.PDF')">Compartilhar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="nanocare">
+        <h2>Nanocare</h2>
+        <div class="tutorial-gallery">
+            <div class="tutorial-item">
+                <h3>EH-NA6A</h3>
+                <p>Clique no link abaixo para baixar</p>
+                <a href="https://drive.google.com/file/d/1sSPRWvsqilUUbs2sns5lKx-TiSFUbY5k/view?usp=drivesdk" class="btn">Baixar Manual</a>
+                <a href="javascript:void(0);" class="share-btn btn" onclick="shareManual('Confira este manual EH-NA6A: https://drive.google.com/file/d/1sSPRWvsqilUUbs2sns5lKx-TiSFUbY5k/view?usp=drivesdk')">Compartilhar</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Função para compartilhar manual via WhatsApp
+        function shareManual(report) {
+            const encodedReport = encodeURIComponent(report);
+            const whatsappUrl = `https://wa.me/?text=${encodedReport}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Função para sugerir produtos na pesquisa
+        function suggestProducts() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const suggestionsList = document.getElementById('suggestionsList');
+            const items = document.querySelectorAll('.tutorial-item h3');
+
+            // Limpar sugestões anteriores
+            suggestionsList.innerHTML = '';
+            suggestionsList.style.display = 'none';
+
+            if (!filter) return;
+
+            let hasSuggestions = false;
+
+            items.forEach(item => {
+                if (item.textContent.toLowerCase().includes(filter)) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = item.textContent;
+                    listItem.onclick = () => {
+                        input.value = item.textContent;
+                        suggestionsList.innerHTML = '';
+                        suggestionsList.style.display = 'none';
+                        filterProducts();
+                    };
+                    suggestionsList.appendChild(listItem);
+                    hasSuggestions = true;
+                }
+            });
+
+            if (hasSuggestions) {
+                suggestionsList.style.display = 'block';
+            }
+        }
+
+        // Função para filtrar produtos
+        function filterProducts() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const items = document.querySelectorAll('.tutorial-item');
+
+            items.forEach(item => {
+                const name = item.querySelector('h3').textContent.toLowerCase();
+                if (name.includes(filter)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

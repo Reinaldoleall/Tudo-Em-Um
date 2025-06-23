@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        /* Estilo Geral */
+        html, body {
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            background-color: #f4f4f4;
+            border-radius: 10px 10px 0 0;
+            transition: background-color 0.3s;
+        }
+
+        .tab.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 99%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button {
+            width: 99%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1></h1>
+
+        <!-- Campo para a Filial -->
+        <label for="filial">Nome da Filial:</label>
+        <input type="text" id="filial" placeholder="Digite o nome da filial">
+
+        <!-- Data Atual -->
+        <label for="data">Data:</label>
+        <input type="text" id="data" readonly>
+
+        <!-- Abas -->
+        <div class="tabs">
+            <div class="tab active" data-target="#geladeira">Geladeira</div>
+            <div class="tab" data-target="#microondas">Microondas</div>
+            <div class="tab" data-target="#builtin">Built-in</div>
+            <div class="tab" data-target="#lavadora">Lavadoras</div>
+        </div>
+
+        <!-- Conteúdo das Abas -->
+        <div id="geladeira" class="tab-content active">
+            <h2>Geladeiras</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                      <tr>
+                        <td>NR-BT41PD1WA</td>
+                        <td><input type="number" id="geladeira_NR-BT41PD1WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BT41PD1XA</td>
+                        <td><input type="number" id="geladeira_NR-BT41PD1XA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BT43PV1TA</td>
+                        <td><input type="number" id="geladeira_NR-BT43PV1TA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BT50BD3WA</td>
+                        <td><input type="number" id="geladeira_NR-BT50BD3WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BT50BD3XA</td>
+                        <td><input type="number" id="geladeira_NR-BT50BD3XA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BT55PV2WA</td>
+                        <td><input type="number" id="geladeira_NR-BT55PV2WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BT55PV2XA</td>
+                        <td><input type="number" id="geladeira_NR-BT55PV2XA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB41GV</td>
+                        <td><input type="number" id="geladeira_NR-BB41GV" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB41T</td>
+                        <td><input type="number" id="geladeira_NR-BB41T" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB53PV3WA</td>
+                        <td><input type="number" id="geladeira_NR-BB53PV3WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB53PV3XA</td>
+                        <td><input type="number" id="geladeira_NR-BB53PV3XA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB53GV3BA</td>
+                        <td><input type="number" id="geladeira_NR-BB53GV3BA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB53GV3M</td>
+                        <td><input type="number" id="geladeira_NR-BB53GV3M" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB64PV1B</td>
+                        <td><input type="number" id="geladeira_NR-BB64PV1B" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB64PV1X</td>
+                        <td><input type="number" id="geladeira_NR-BB64PV1X" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB65GVFM</td>
+                        <td><input type="number" id="geladeira_NR-BB65GVFM" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB65GVFB</td>
+                        <td><input type="number" id="geladeira_NR-BB65GVFB" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB71X</td>
+                        <td><input type="number" id="geladeira_NR-BB71X" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NR-BB71GV</td>
+                        <td><input type="number" id="geladeira_NR-BB71GV" placeholder="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="microondas" class="tab-content">
+            <h2>Microondas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr>
+                        <td>NN-ST25LWRUN</td>
+                        <td><input type="number" id="mwo_NN-ST25LWRUN" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NN-ST27LWRUN</td>
+                        <td><input type="number" id="mwo_NN-ST27LWRUN" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NN-ST55LMRUN</td>
+                        <td><input type="number" id="mwo_NN-ST55LMRUN" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NN-ST65LWRUN</td>
+                        <td><input type="number" id="mwo_NN-ST65LWRUN" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NN-ST66NBRUN</td>
+                        <td><input type="number" id="mwo_NN-ST66NBRUN" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NN-ST67LSRUN</td>
+                        <td><input type="number" id="mwo_NN-ST67LSRUN" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NN-CD89NBRUN</td>
+                        <td><input type="number" id="mwo_NN-CD89NBRUN" placeholder="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="builtin" class="tab-content">
+            <h2>Built-in</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                <td>HL-CX672BRPK</td>
+                <td><input type="number" id="builtin_HL-CX672BRPK" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>FV-9HSDB2</td>
+                <td><input type="number" id="builtin_FV-9HSDB2" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>NP-6M1MBKBRP</td>
+                <td><input type="number" id="builtin_NP-6M1MBKBRP" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>NP-6M2FTKBRP</td>
+                <td><input type="number" id="builtin_NP-6M2FTKBRP" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>HL-CX668SRPK</td>
+                <td><input type="number" id="builtin_HL-CX668SRPK" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>KY-W648CLRPK</td>
+                <td><input type="number" id="builtin_KY-W648CLRPK" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>KY-T937XLRPK</td>
+                <td><input type="number" id="builtin_KY-T937XLRPK" placeholder="0"></td>
+            </tr>
+            <tr>
+                <td>NN-GB68HSRUK</td>
+                <td><input type="number" id="builtin_NN-GB68HSRUK" placeholder="0"></td>
+            </tr>
+        </tbody>
+            </table>
+        </div>
+
+        <div id="lavadora" class="tab-content">
+            <h2>Lavadoras</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NA-F120B1WA</td>
+                        <td><input type="number" id="maquina_lavar_NA-F120B1WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NA-F120B1TA</td>
+                        <td><input type="number" id="maquina_lavar_NA-F120B1TA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NA-F140B1WA</td>
+                        <td><input type="number" id="maquina_lavar_NA-F140B1WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NA-F160B6W</td>
+                        <td><input type="number" id="maquina_lavar_NA-F160B6W" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NA-F170B7WA</td>
+                        <td><input type="number" id="maquina_lavar_NA-F170B7WA" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td>NA-F180P7TA</td>
+                        <td><input type="number" id="maquina_lavar_NA-F180P7TA" placeholder="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button onclick="compartilharWhatsApp()">Compartilhar no WhatsApp</button>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const dataField = document.getElementById('data');
+
+        // Define a data atual no campo de data
+        const hoje = new Date();
+        const dataFormatada = hoje.toLocaleDateString('pt-BR');
+        dataField.value = dataFormatada;
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelector(tab.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        function compartilharWhatsApp() {
+    const filial = document.getElementById('filial').value || 'Não informado';
+    const data = dataField.value;
+
+    let relatorio = `*Depósito - Filial:* ${filial}\n*Data:* ${data}\n\n`;
+
+    document.querySelectorAll('table').forEach(table => {
+        const titulo = table.previousElementSibling.innerText;
+        let produtosPreenchidos = false;
+        let produtosRelatorio = `*${titulo}*\n`;
+
+        table.querySelectorAll('tbody tr').forEach(row => {
+            const produto = row.cells[0].innerText;
+            const quantidade = row.cells[1].querySelector('input').value || 0;
+            if (quantidade > 0) {
+                produtosRelatorio += `- ${produto}: ${quantidade}\n`;
+                produtosPreenchidos = true;
+            }
+        });
+
+        if (produtosPreenchidos) {
+            relatorio += produtosRelatorio + "\n";
+        }
+    });
+
+    const url = `https://wa.me/?text=${encodeURIComponent(relatorio)}`;
+    window.open(url, '_blank');
+}
+    </script>
+</body>
+
+</html>

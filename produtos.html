@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Aplicativo Android</title>
+    
+    <style>
+       /* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+}
+
+/* Campo de pesquisa */
+#search-input {
+    width: 80%;
+    max-width: 600px;
+    padding: 12px;
+    margin: 20px auto;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+}
+
+#search-input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#search-input::placeholder {
+    color: #aaa;
+}
+
+/* Caixa de sugestões */
+.suggestions-box {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: #fff;
+    width: 80%;
+    max-width: 600px;
+    z-index: 1000;
+    display: none;
+    margin-top: -20px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.suggestions-box li {
+    padding: 10px;
+    cursor: pointer;
+    list-style-type: none;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+    color: #333; /* Cor do texto ajustada para cinza escuro */
+}
+
+.suggestions-box li:hover {
+    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+}
+
+.suggestions-box li:last-child {
+    border-bottom: none;
+}
+
+/* Seções de produtos */
+section {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-align: center;
+}
+
+.product-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.product-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-item p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.share-btn {
+    background-color: #25D366;
+}
+
+/* Estilo para o botão de compartilhar */
+.share-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    color: #ffffff;
+    background-color: #25D366; /* Cor do WhatsApp */
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.share-btn:hover {
+    background-color: #128C7E;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    #search-input {
+        width: 90%;
+    }
+
+    .product-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Produtos</h1>
+        <p>Selecione um produto para ver mais detalhes ou compartilhar</p>
+        <!-- Campo de Pesquisa -->
+        
+    <div id="suggestions-box" class="suggestions-box"></div>
+
+    </header>
+    
+    <input type="text" id="search-input" placeholder="Pesquisar produtos...">
+
+<!-- Seção de Microondas -->
+<section id="microondas">
+    <h2>Microondas</h2>
+    <div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-ST25" id="product-st25">
+            <img src="./imagem/st25.png" alt="Microondas NN-ST25">
+            <a href="https://drive.google.com/file/d/1J2cEnpcSssikqDtoC5OtPfhY3Fc8H550/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-ST25 https://drive.google.com/file/d/1J2cEnpcSssikqDtoC5OtPfhY3Fc8H550/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </section>
+<section id="microondas">
+ <div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-ST27" id="product-st27">
+            <img src="./imagem/st27.png" alt="Microondas NN-ST27">
+            <a href="https://drive.google.com/file/d/1J2fCGIiTDJvI-leg-jgONdB5LrPiWrYG/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-ST27 https://drive.google.com/file/d/1J2fCGIiTDJvI-leg-jgONdB5LrPiWrYG/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="microondas">
+<div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-ST55L" id="product-st55l">
+            <img src="./imagem/st55l.png" alt="Microondas NN-ST55L">
+            <a href="https://drive.google.com/file/d/1J6R9l5eok4kBEhLBD8huBuoy-XLCX5er/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-ST55L https://drive.google.com/file/d/1J6R9l5eok4kBEhLBD8huBuoy-XLCX5er/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="microondas">
+<div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-ST65L" id="product-st65l">
+            <img src="./imagem/st65l.png" alt="Microondas NN-ST65L">
+            <a href="https://drive.google.com/file/d/1JCC4KJA_2kIQkToUc-lwG8zSkqjAvijQ/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-ST65L https://drive.google.com/file/d/1JCC4KJA_2kIQkToUc-lwG8zSkqjAvijQ/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="microondas">
+<div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-ST66N" id="product-st66n">
+            <img src="./imagem/st66n.png" alt="Microondas NN-ST66N">
+            <a href="https://drive.google.com/file/d/1JHuK8TVCgqoF-wvy10Q_VSDPUut7wlNZ/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-ST66N https://drive.google.com/file/d/1JHuK8TVCgqoF-wvy10Q_VSDPUut7wlNZ/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="microondas">
+<div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-ST67L" id="product-st67l">
+            <img src="./imagem/st67l.png" alt="Microondas NN-ST67L">
+            <a href="https://drive.google.com/file/d/1JRz3hfNPXnpepWCkHNxkUfZyYMAqDVBB/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-ST67L https://drive.google.com/file/d/1JRz3hfNPXnpepWCkHNxkUfZyYMAqDVBB/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="microondas">
+<div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-GT68" id="product-gt68">
+            <img src="./imagem/gt68.png" alt="Microondas NN-GT68">
+            <a href="https://drive.google.com/file/d/1IcPQKYZi1ZPaor46rgZzS8jPfBXxToCk/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-GT68 https://drive.google.com/file/d/1IcPQKYZi1ZPaor46rgZzS8jPfBXxToCk/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="microondas">
+<div class="product-gallery">
+        <div class="product-item" data-name="Microondas NN-CD89" id="product-cd89">
+            <img src="./imagem/cd89.png" alt="Microondas NN-CD89">
+            <a href="https://drive.google.com/file/d/1IbLdopvAcmhDXtsbe-e6zYtm2UbwdiFl/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Microondas NN-CD89 https://drive.google.com/file/d/1IbLdopvAcmhDXtsbe-e6zYtm2UbwdiFl/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+
+
+   <!-- Seção de Lavadoras -->
+<section id="lavadoras">
+    <h2>Lavadoras</h2>
+    <div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F120" id="product-f120">
+            <img src="./imagem/f120.png" alt="Lavadora NA-F120">
+            <a href="https://drive.google.com/file/d/1IoHkrJQauqy24SKtA3Df2BlPWvgtxNk5/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F120 https://drive.google.com/file/d/1IoHkrJQauqy24SKtA3Df2BlPWvgtxNk5/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="lavadoras">
+<div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F120T" id="product-f120t">
+            <img src="./imagem/f120t.png" alt="Lavadora NA-F120T">
+            <a href="https://drive.google.com/file/d/1IlWNKaKco0UCYdfuf1EhOp2o31zf-yxS/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F120T https://drive.google.com/file/d/1IlWNKaKco0UCYdfuf1EhOp2o31zf-yxS/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="lavadoras">
+<div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F130" id="product-f130">
+            <img src="./imagem/f130.png" alt="Lavadora NA-F130">
+            <a href="https://drive.google.com/file/d/1IpYLCJVXb2-m1oxtvqYPl9R02WfKkjpQ/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F130 https://drive.google.com/file/d/1IpYLCJVXb2-m1oxtvqYPl9R02WfKkjpQ/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="lavadoras">
+<div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F140" id="product-f140">
+            <img src="./imagem/f140.png" alt="Lavadora NA-F140">
+            <a href="https://drive.google.com/file/d/1IqIPojOzcT6u8CNXZe5MnbS2aUm84RpO/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F140 https://drive.google.com/file/d/1IqIPojOzcT6u8CNXZe5MnbS2aUm84RpO/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="lavadoras">
+<div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F160" id="product-f160">
+            <img src="./imagem/f160.png" alt="Lavadora NA-F160">
+            <a href="https://drive.google.com/file/d/1IqXZAW0DEKXh47q40qMwVImv8TEFjfNR/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F160 https://drive.google.com/file/d/1IqXZAW0DEKXh47q40qMwVImv8TEFjfNR/view?usp=drivesdk')">Compartilhar</a>
+       </div>
+    </div>
+    </section>
+<section id="lavadoras">
+<div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F170" id="product-f170">
+            <img src="./imagem/f170.png" alt="Lavadora NA-F170">
+            <a href="https://drive.google.com/file/d/1IqfCtgg9y-jFTLKz0q3SeyKpGHRpKhGs/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F170 https://drive.google.com/file/d/1IqfCtgg9y-jFTLKz0q3SeyKpGHRpKhGs/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="lavadoras">
+<div class="product-gallery">
+        <div class="product-item" data-name="Lavadora NA-F180" id="product-f180">
+            <img src="./imagem/f180.png" alt="Lavadora NA-F180">
+            <a href="https://drive.google.com/file/d/1ItEmtwNgK7xDO4fX6uWwBL-ZGMf_osEh/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Lavadora NA-F180 https://drive.google.com/file/d/1ItEmtwNgK7xDO4fX6uWwBL-ZGMf_osEh/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+
+    <!-- Seção de Geladeiras -->
+<section id="geladeiras">
+    <h2>Geladeiras</h2>
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT41W" id="product-bt41w">
+            <img src="./imagem/bt41w.png" alt="Geladeira BT41W">
+            <a href="https://drive.google.com/file/d/1IqIPojOzcT6u8CNXZe5MnbS2aUm84RpO/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT41W https://drive.google.com/file/d/1IqIPojOzcT6u8CNXZe5MnbS2aUm84RpO/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT41X" id="product-bt41x">
+            <img src="./imagem/bt41x.png" alt="Geladeira BT41X">
+            <a href="https://drive.google.com/file/d/1IIkUCsX3vYxJZQ1Lf5LOL07_qR9B6PR1/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT41X https://drive.google.com/file/d/1IIkUCsX3vYxJZQ1Lf5LOL07_qR9B6PR1/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT43T" id="product-bt43t">
+            <img src="./imagem/bt43t.png" alt="Geladeira BT43T">
+            <a href="https://drive.google.com/file/d/1IMMPfOgwuDb0yznrmmqr-4zub2HiJAGG/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT43T https://drive.google.com/file/d/1IMMPfOgwuDb0yznrmmqr-4zub2HiJAGG/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT50W" id="product-bt50w">
+            <img src="./imagem/bt50w.png" alt="Geladeira BT50W">
+            <a href="https://drive.google.com/file/d/1IQtGnfsm5WRxzR2hxPujoLoIKTm_L2oA/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT50W https://drive.google.com/file/d/1IQtGnfsm5WRxzR2hxPujoLoIKTm_L2oA/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT50X" id="product-bt50x">
+            <img src="./imagem/bt50x.png" alt="Geladeira BT50X">
+            <a href="https://drive.google.com/file/d/1IS2H7ToMKfJ5Q59Wvnt6mpnSnDhLQ8Qk/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT50X https://drive.google.com/file/d/1IS2H7ToMKfJ5Q59Wvnt6mpnSnDhLQ8Qk/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT55W" id="product-bt55w">
+            <img src="./imagem/bt55w.png" alt="Geladeira BT55W">
+            <a href="https://drive.google.com/file/d/1ITAULHUIYde2yUDKqzCrqeWRLCZdyi3E/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT55W https://drive.google.com/file/d/1ITAULHUIYde2yUDKqzCrqeWRLCZdyi3E/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BT55X" id="product-bt55x">
+            <img src="./imagem/bt55x.png" alt="Geladeira BT55X">
+            <a href="https://drive.google.com/file/d/1I_7JoOcaFyyXTKuUrzKwU8tDBsJXanHp/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BT55X https://drive.google.com/file/d/1I_7JoOcaFyyXTKuUrzKwU8tDBsJXanHp/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BB41T" id="product-bb41t">
+            <img src="./imagem/bb41t.png" alt="Geladeira BB41T">
+            <a href="https://drive.google.com/file/d/1HgMgMJ-spTzWZziho19hT_2pmSAnLMIn/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB41T https://drive.google.com/file/d/1HgMgMJ-spTzWZziho19hT_2pmSAnLMIn/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BB41G" id="product-bb41g">
+            <img src="./imagem/bb41g.png" alt="Geladeira BB41G">
+            <a href="https://drive.google.com/file/d/1HeDZFnUMDCvTY22c2uxQsIpSAUrAaR_g/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB41G https://drive.google.com/file/d/1HeDZFnUMDCvTY22c2uxQsIpSAUrAaR_g/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BB53W" id="product-bb53w">
+            <img src="./imagem/bb53w.png" alt="Geladeira BB53W">
+            <a href="https://drive.google.com/file/d/1I01V7XEuajVaAo9k3RYiAd7JfM0E5BGD/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB53W https://drive.google.com/file/d/1I01V7XEuajVaAo9k3RYiAd7JfM0E5BGD/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BB53X" id="product-bb53x">
+            <img src="./imagem/bb53x.png" alt="Geladeira BB53X">
+            <a href="https://drive.google.com/file/d/1I39zXdhJIfpvLNRmqXmsNHofbC1j_gnw/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB53X https://drive.google.com/file/d/1I39zXdhJIfpvLNRmqXmsNHofbC1j_gnw/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+    <section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BB53T" id="product-bb53t">
+            <img src="./imagem/bb53t.png" alt="Geladeira BB53T">
+            <a href="https://drive.google.com/file/d/1Hyo9tXVY1slpoojrHIEC9h90c1pJ1zG3/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB53T https://drive.google.com/file/d/1Hyo9tXVY1slpoojrHIEC9h90c1pJ1zG3/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+    <section id="geladeiras">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Geladeira NR-BB53G" id="product-bb53g">
+            <img src="./imagem/bb53g.png" alt="Geladeira BB53G">
+            <a href="https://drive.google.com/file/d/1Hmn8pI_87sF9XEcI63Wd8irRZyFfVzWq/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB53G https://drive.google.com/file/d/1Hmn8pI_87sF9XEcI63Wd8irRZyFfVzWq/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+       <div class="product-item" data-name="Geladeira NR-BB64PV1B" id="product-bb64b">
+                <img src="./imagem/bb64b.png" alt="Geladeira BB64B">
+                <a href="https://drive.google.com/file/d/1kLL3_R4Agbzaub06qXlRuhM61MHkSiqU/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+                <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB64PV1B https://drive.google.com/file/d/1kLL3_R4Agbzaub06qXlRuhM61MHkSiqU/view?usp=drivesdk')">Compartilhar</a>
+             </div>
+        </div>
+        </section>
+        <section id="geladeiras">
+    <div class="product-gallery">
+       <div class="product-item" data-name="Geladeira NR-BB64PV1X" id="product-bb64b">
+                <img src="./imagem/bb64x.png" alt="Geladeira BB64B">
+                <a href="https://drive.google.com/file/d/1kEZtJsVCSGuVeGi7n1zyap3eQ3r4TWHp/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+                <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB64PV1X https://drive.google.com/file/d/1kEZtJsVCSGuVeGi7n1zyap3eQ3r4TWHp/view?usp=drivesdk')">Compartilhar</a>
+             </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+            <div class="product-item" data-name="Geladeira NR-BB65GVFB" id="product-bb65">
+                <img src="./imagem/bb65.png" alt="Geladeira BB65GVFB">
+                <a href="https://drive.google.com/file/d/1kEVM5mzZgurjaSpGkxUqT64_IXVNEOIO/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+                <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB65GVFB https://drive.google.com/file/d/1kEVM5mzZgurjaSpGkxUqT64_IXVNEOIO/view?usp=drivesdk')">Compartilhar</a>
+            </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+            <div class="product-item" data-name="Geladeira NR-BB65M" id="product-bb65m">
+                <img src="./imagem/bb65m.png" alt="Geladeira BB65M">
+                <a href="https://drive.google.com/file/d/1kESB1PwDFoyQz6mIZ_jNwt0wIQ_V_-5R/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+                <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB65M https://drive.google.com/file/d/1kESB1PwDFoyQz6mIZ_jNwt0wIQ_V_-5R/view?usp=drivesdk')">Compartilhar</a>
+             </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+            <div class="product-item" data-name="Geladeira NR-BB71X" id="product-bb71x">
+                <img src="./imagem/bb71x.png" alt="Geladeira BB71X">
+                <a href="https://drive.google.com/file/d/1IIbOGZ6lHxPSxxOxq0TUCSI465NlmBV9/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+                <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB71X https://drive.google.com/file/d/1IIbOGZ6lHxPSxxOxq0TUCSI465NlmBV9/view?usp=drivesdk')">Compartilhar</a>
+             </div>
+        </div>
+        </section>
+<section id="geladeiras">
+    <div class="product-gallery">
+            <div class="product-item" data-name="Geladeira NR-BB71G" id="product-bb71g">
+                <img src="./imagem/bb71g.png" alt="Geladeira BB71G">
+                <a href="https://drive.google.com/file/d/1IFiNnzsUKyR1e5k8ruL-KH0oHZFoqU5z/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+                <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Geladeira NR-BB71G https://drive.google.com/file/d/1IFiNnzsUKyR1e5k8ruL-KH0oHZFoqU5z/view?usp=drivesdk')">Compartilhar</a>
+            </div>
+        </div>
+    </section>
+    
+<!-- Seção de Built-in -->
+<section id="built-in">
+    <h2>Built-in</h2>
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in GB68HSRUK" id="product-gb68hsruk">
+            <img src="./imagem/NN-GB68.png" alt="Built-in NN-GB68HSRUK">
+            <a href="https://drive.google.com/file/d/1ldh9xvMSF2KEbFBteUNpRzpJ6LHx6moq/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in GB68HSRUK https://drive.google.com/file/d/1ldh9xvMSF2KEbFBteUNpRzpJ6LHx6moq/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+<section id="built-in">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in HL-CX668SRPK" id="product-cx668srpk">
+            <img src="./imagem/HL-CX668.png" alt="Built-in HL-CX668SRPK">
+            <a href="https://drive.google.com/file/d/1ljHE4Hh5gfE4V0GSQ-MXqnyDWb4uxgFf/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in HL-CX668SRPK https://drive.google.com/file/d/1ljHE4Hh5gfE4V0GSQ-MXqnyDWb4uxgFf/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+<section id="built-in">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in HL-CX672BRPK" id="product-cx672brpk">
+            <img src="./imagem/HL-CX67.png" alt="Built-in HL-CX672BRPK">
+            <a href="https://drive.google.com/file/d/1lLCKAGZgSVPqd6wp9CHXnxg7sofjgd1T/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in HL-CX672BRPK https://drive.google.com/file/d/1lLCKAGZgSVPqd6wp9CHXnxg7sofjgd1T/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+<section id="built-in">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in NP-6M2FTKBRP" id="product-6m2ftkbrp">
+            <img src="./imagem/NP-6M2.png" alt="Built-in NP-6M2FTKBRP">
+            <a href="https://drive.google.com/file/d/1lZXxSmumotHzwmguvJcQ8i2ztdTKfvIu/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in NP-6M2FTKBRP https://drive.google.com/file/d/1lZXxSmumotHzwmguvJcQ8i2ztdTKfvIu/view?usp=drivesdk')">Compartilhar</a>
+         </div>
+    </div>
+    </section>
+<section id="built-in">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in NP-6M1MBKBRP" id="product-6m1mbkbrp">
+            <img src="./imagem/NP-6M1.png" alt="Built-in NP-6M1MBKBRP">
+            <a href="https://drive.google.com/file/d/1l_eDRowKJ5twEMTGaAqF5hKf_NkwxabE/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in NP-6M1MBKBRP https://drive.google.com/file/d/1l_eDRowKJ5twEMTGaAqF5hKf_NkwxabE/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="built-in">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in KY-W648CLRPK" id="product-w648clrpk">
+            <img src="./imagem/KY-W648.png" alt="Built-in KY-W648CLRPK">
+            <a href="https://drive.google.com/file/d/1lq9FmDY-TMLIdoVnxEgkQ2sYjPKMdv7f/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in KY-W648CLRPK https://drive.google.com/file/d/1lq9FmDY-TMLIdoVnxEgkQ2sYjPKMdv7f/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+    </section>
+<section id="built-in">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Built-in KY-W648BRPK" id="product-w648brpk">
+            <img src="./imagem/KY-T937.png" alt="Built-in KY-T937XLRPK">
+            <a href="https://drive.google.com/file/d/1lk7VlFxFkpRr---lzckKlK2zngRzopdd/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: Built-in KY-T937XLRPK https://drive.google.com/file/d/1lk7VlFxFkpRr---lzckKlK2zngRzopdd/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+ <h2>Cuidados pessoais</h2>
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais NANOCARE-EH-NA6A" id="product-eh-na6a">
+            <img src="./imagem/A.png" alt="Cuidados pessoais - NANOCARE-EH-NA6A">
+            <a href="https://drive.google.com/file/d/1zOuUSO4RUoH3br3fpWtmMkwWpiT480fV/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: NANOCARE-EH-NA6A https://drive.google.com/file/d/1zOuUSO4RUoH3br3fpWtmMkwWpiT480fV/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais ER-389X" id="product-er-389x">
+            <img src="./imagem/B.png" alt="Cuidados pessoais - ER-389X">
+            <a href="https://drive.google.com/file/d/1z74hNkl-gnEVaKw2Y8TCXGc_oZS_PGjz/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: ER-389X https://drive.google.com/file/d/1z74hNkl-gnEVaKw2Y8TCXGc_oZS_PGjz/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais ES-WF61" id="product-es-wf61">
+            <img src="./imagem/C.png" alt="Cuidados pessoais - ES-WF61">
+            <a href="https://drive.google.com/file/d/1z9UwE4PWfaEJzTx32Jwt3WcXZGFjdBkM/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: ES-WF61 https://drive.google.com/file/d/1z9UwE4PWfaEJzTx32Jwt3WcXZGFjdBkM/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais ER-GN25" id="product-er-gn25">
+            <img src="./imagem/D.png" alt="Cuidados pessoais - ER-GN25">
+            <a href="https://drive.google.com/file/d/1zESFX3Xao9gXl8QoMQh28oeWnYoMn466/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: ER-GN25 https://drive.google.com/file/d/1zESFX3Xao9gXl8QoMQh28oeWnYoMn466/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais ER-GN30" id="product-er-gn30">
+            <img src="./imagem/E.png" alt="Cuidados pessoais - ER-GN30">
+            <a href="https://drive.google.com/file/d/1zIxHflQu9UjbjRkBaTIuw27Nhng8rrl2/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: ER-GN30 https://drive.google.com/file/d/1zIxHflQu9UjbjRkBaTIuw27Nhng8rrl2/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais ER-GB80" id="product-er-gb80">
+            <img src="./imagem/F.png" alt="Cuidados pessoais - ER-GB80">
+            <a href="https://drive.google.com/file/d/1zJD4lHkC0XjClou-w_gurSwnWHF1Mzuy/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: ER-GB80 https://drive.google.com/file/d/1zJD4lHkC0XjClou-w_gurSwnWHF1Mzuy/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+<section id="cuidados-pessoais">
+    <div class="product-gallery">
+        <div class="product-item" data-name="Cuidados pessoais ER-GK80" id="product-er-gk80">
+            <img src="./imagem/G.png" alt="Cuidados pessoais - ERGK80">
+            <a href="https://drive.google.com/file/d/1zN0_FwrFTNjcXmlZvOlkIsUpDZm_TgSX/view?usp=drivesdk" class="btn">Ver Detalhes</a>
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Confira este produto: ER-GK80 https://drive.google.com/file/d/1zN0_FwrFTNjcXmlZvOlkIsUpDZm_TgSX/view?usp=drivesdk')">Compartilhar</a>
+        </div>
+    </div>
+</section>
+  <script>
+    // Função para compartilhar via WhatsApp
+    function shareViaWhatsApp(report) {
+        const encodedReport = encodeURIComponent(report);
+        const whatsappUrl = `https://wa.me/?text=${encodedReport}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    // Função para compartilhar usando o compartilhamento nativo do navegador
+    function shareViaNative(message) {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Compartilhar Produto',
+                text: message,
+                url: window.location.href
+            }).catch(console.error);
+        } else {
+            alert("Compartilhamento não suportado pelo seu navegador.");
+        }
+    }
+
+    // Função unificada para decidir o método de compartilhamento
+    function shareProduct(message) {
+        // Use o compartilhamento nativo se disponível, caso contrário, use o WhatsApp
+        if (navigator.share) {
+            shareViaNative(message);
+        } else {
+            shareViaWhatsApp(message);
+        }
+    }
+
+    // Adiciona o listener para o DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        const productItems = document.querySelectorAll('.product-item');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+
+            productItems.forEach(item => {
+                const productName = item.dataset.name.toLowerCase();
+                if (productName.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+           

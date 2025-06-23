@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pílulas do Conhecimento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .intro h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .intro p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        /* Campo de busca */
+        #search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            margin: 20px auto;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            display: block;
+        }
+
+        /* Container dos produtos */
+        .produtos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .produto {
+            margin: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 320px;
+            text-align: center;
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .produto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .produto img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Botão de compartilhar */
+        .share-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background-color: #128C7E;
+        }
+
+        .produto h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .produto {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            #search-input {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="intro">
+            <h1>Pílulas do Conhecimento</h1>
+            <p>Aprenda mais e compartilhe conhecimento...</p>
+            
+        </div>
+    </header>
+    
+    <input type="text" id="search-input" placeholder="Buscar pílulas de conhecimento...">
+
+    <section class="produtos" id="produtos">
+        <!-- Todas as pílulas, separadas em divs -->
+        <div class="produto" data-name="Irrigador oral - EW-DJ10">
+            <h3>Irrigador oral - EW-DJ10</h3>
+            <img src="imagem/00.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Irrigador oral - EW-DJ10', 'https://drive.google.com/file/d/1or9CuoHOUkX4B5VcZmviwakk1yiiaB3B/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Aparador de pelos faciais - ER-GN30">
+            <h3>Aparador de pelos faciais - ER-GN30</h3>
+            <img src="imagem/01.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Aparador de pelos faciais - ER-GN30', 'https://drive.google.com/file/d/1ouqHMG6PIqQrAjjElobNCACEj6gR1rDq/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Aparador de pelos faciais - ES-WF61">
+            <h3>Aparador de pelos faciais - ES-WF61</h3>
+            <img src="imagem/02.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Aparador de pelos faciais - ES-WF61', 'https://drive.google.com/file/d/1ovsdhQoYf13puAYKtk7q7Z4fOsB_DRiM/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Máquina de acabamento - ER-389X">
+            <h3>Máquina de acabamento - ER-389X</h3>
+            <img src="imagem/03.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Máquina de acabamento - ER-389X', 'https://drive.google.com/file/d/1owyxA2fljHdB-HdMkTd0qPWC8XeH53gv/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Cooktop de indução - KY-T937XL">
+            <h3>Cooktop de indução - KY-T937XL</h3>
+            <img src="imagem/04.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Cooktop de indução - KY-T937XL', 'https://drive.google.com/file/d/1r-ZGxnbF6fxIoRB1j21zYXZsWjQKlmDN/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Cooktop de indução - KY-T937XL">
+            <h3>Cooktop de indução - KY-T937XL</h3>
+            <img src="imagem/05.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Cooktop de indução - KY-T937XL', 'https://drive.google.com/file/d/1p0Jo0a9N2lHBnoqGzMgVZycOkRtYK2Ho/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Cooktop de indução - KY-T937XL">
+            <h3>Cooktop de indução - KY-T937XL</h3>
+            <img src="imagem/06.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Cooktop de indução - KY-T937XL', 'https://drive.google.com/file/d/1p398ZtGa-NPBw_x-5zzcH6AFQxdoEIOu/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Lava-louças - NP-6M2FTKBRP/6M1MBKBRP">
+            <h3>Lava-louças - NP-6M2FTKBRP/6M1MBKBRP</h3>
+            <img src="imagem/07.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Lava-louças - NP-6M2FTKBRP/6M1MBKBRP', 'https://drive.google.com/file/d/1pD_zMHLxmpjF4a6f5P1F1m8KHkfHsUby/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Lava-louças - NP-6M2FTKBRP/6M1MBKBRP">
+            <h3>Lava-louças - NP-6M2FTKBRP/6M1MBKBRP</h3>
+            <img src="imagem/08.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Lava-louças - NP-6M2FTKBRP/6M1MBKBRP', 'https://drive.google.com/file/d/1qzQ91E9K4yE6gR4A2SLF9ktGvlv7Y3pm/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Lava-louças - NP-6M2FTKBRP/6M1MBKBRP">
+            <h3>Lava-louças - NP-6M2FTKBRP/6M1MBKBRP</h3>
+            <img src="imagem/09.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Lava-louças - NP-6M2FTKBRP/6M1MBKBRP', 'https://drive.google.com/file/d/1pIM5G4MwlHz_rg0hvIsPCya8Xv7pXm6v/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Irrigador oral - EW-DJ10">
+            <h3>Irrigador oral - EW-DJ10</h3>
+            <img src="imagem/10.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Irrigador oral - EW-DJ10', 'https://drive.google.com/file/d/1qyR3CnM9o2tA3KCYABbcuagi9h0_Jgl2/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Microondas - NN-CD89">
+            <h3>Microondas - NN-CD89</h3>
+            <img src="imagem/11.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Microondas - NN-CD89', 'https://drive.google.com/file/d/1pJYb0CQGR5pIWAIDaRv-fydJJt11ahBc/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/12.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1pNAuIjLCBqM3_CMnk0Jt0QzSBmZ4NXCJ/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/13.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1pUL_NCJI9pbNCy8Px-HHd9gRl35tka07/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Lavadora - NA-F170B7W/180P7T">
+            <h3>Lavadora - NA-F170B7W/180P7T</h3>
+            <img src="imagem/14.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Lavadora - NA-F170B7W/180P7T', 'https://drive.google.com/file/d/1qwfhTSOwdmLreZ_tMH4eOoe4NApzZLUG/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Microondas - NN-GB68HSRUK">
+            <h3>Microondas - NN-GB68HSRUK</h3>
+            <img src="imagem/15.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Microondas - NN-GB68HSRUK', 'https://drive.google.com/file/d/1pVhYAtHUe83nmo9Rp2TYD4qdRgPcy8Ur/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira - NR-BB71">
+            <h3>Geladeira - NR-BB71</h3>
+            <img src="imagem/16.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira - NR-BB71', 'https://drive.google.com/file/d/1pYq-PugJRFhBXUguz8wJVTzB4osFpSAg/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira - NR-BB71/BB41/BB53/BT43">
+            <h3>Geladeira - NR-BB71/BB41/BB53/BT43</h3>
+            <img src="imagem/17.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira - NR-BB71/BB41/BB53/BT43', 'https://drive.google.com/file/d/1pb4aK3KXNJrE3nlBeScywc6EDAjk-bWV/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/18.jpg" alt="Demonstração F140 e F160B6">
+                        <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1pUL_NCJI9pbNCy8Px-HHd9gRl35tka07/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Lavadora - NA-F170B7W/180P7T">
+            <h3>Lavadora - NA-F170B7W/180P7T</h3>
+            <img src="imagem/14.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Lavadora - NA-F170B7W/180P7T', 'https://drive.google.com/file/d/1qwfhTSOwdmLreZ_tMH4eOoe4NApzZLUG/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Microondas - NN-GB68HSRUK">
+            <h3>Microondas - NN-GB68HSRUK</h3>
+            <img src="imagem/15.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Microondas - NN-GB68HSRUK', 'https://drive.google.com/file/d/1pVhYAtHUe83nmo9Rp2TYD4qdRgPcy8Ur/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira - NR-BB71">
+            <h3>Geladeira - NR-BB71</h3>
+            <img src="imagem/16.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira - NR-BB71', 'https://drive.google.com/file/d/1pYq-PugJRFhBXUguz8wJVTzB4osFpSAg/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira - NR-BB71/BB41/BB53/BT43">
+            <h3>Geladeira - NR-BB71/BB41/BB53/BT43</h3>
+            <img src="imagem/17.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira - NR-BB71/BB41/BB53/BT43', 'https://drive.google.com/file/d/1pb4aK3KXNJrE3nlBeScywc6EDAjk-bWV/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/18.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1qsUPuIBU12swRWzBbjb18qE1mpJiOGjj/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/19.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1phuOgFbFatfncpx3vQX92WJsAJDY2ydZ/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Forno elétrico de embutir - HL-CX672BRPK">
+            <h3>Forno elétrico de embutir - HL-CX672BRPK</h3>
+            <img src="imagem/20.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Forno elétrico de embutir - HL-CX672BRPK', 'https://drive.google.com/file/d/1poWozse54e1JShxw8h1vA0Ad2w4dF84R/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Forno elétrico de embutir">
+            <h3>Forno elétrico de embutir</h3>
+            <img src="imagem/21.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Forno elétrico de embutir', 'https://drive.google.com/file/d/1px9qV0OD2S5-pFRDFtLmGsKqEeCyYS6d/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/22.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1pxkHhzf6yWMO6Vi4iPc4IVleeaVl86vg/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira - NR-BB41">
+            <h3>Geladeira - NR-BB41</h3>
+            <img src="imagem/23.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira - NR-BB41', 'https://drive.google.com/file/d/1py-S3NSorf7b9KMN2PmYM4onR8GXJ3Z7/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira - NR-BB71/BB41/BT43/BT41">
+            <h3>Geladeira - NR-BB71/BB41/BT43/BT41</h3>
+            <img src="imagem/24.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira - NR-BB71/BB41/BT43/BT41', 'https://drive.google.com/file/d/1q1nzdaqaAbTPHo3mtBSGpU8n3M2D2mGx/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Forno elétrico de embutir - HL-CX672BRPK">
+            <h3>Forno elétrico de embutir - HL-CX672BRPK</h3>
+            <img src="imagem/25.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Forno elétrico de embutir - HL-CX672BRPK', 'https://drive.google.com/file/d/1q2z_MLO6oBwhOvYsytlSWbSz_ljTLa_y/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Forno elétrico de embutir - HL-CX672BRPK">
+            <h3>Forno elétrico de embutir - HL-CX672BRPK</h3>
+            <img src="imagem/26.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Forno elétrico de embutir - HL-CX672BRPK', 'https://drive.google.com/file/d/1q4Y2UckIRcLMRDOBvxY36nZbAXdErx4O/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="GB80 D-Perfector">
+            <h3>GB80 D-Perfector</h3>
+            <img src="imagem/27.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('GB80 D-Perfector', 'https://drive.google.com/file/d/1q9Jt7xSFAoh23rMPMEGSH7XctFBpwcmD/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="GB80 D-Perfector">
+            <h3>GB80 D-Perfector</h3>
+            <img src="imagem/28.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('GB80 D-Perfector', 'https://drive.google.com/file/d/1qJOFbBcPja0xOHZFZmoI8PAa91HVW30W/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="GB80 D-Perfector">
+            <h3>GB80 D-Perfector</h3>
+            <img src="imagem/29.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('GB80 D-Perfector', 'https://drive.google.com/file/d/1qNBpOIIB3yOMum6GQM_34lyGFdJ0xiWK/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="GB80 D-Perfector">
+            <h3>GB80 D-Perfector</h3>
+            <img src="imagem/30.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('GB80 D-Perfector', 'https://drive.google.com/file/d/1qNwUitcaAa-BhrUZ9JRDQ1VVW8-rJe5d/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="GB80 D-Perfector">
+            <h3>GB80 D-Perfector</h3>
+            <img src="imagem/31.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('GB80 D-Perfector', 'https://drive.google.com/file/d/1qS8b5maCnGWTS6sgYKVAA8lVS4p1uuOo/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="ER-GK20 Mini V-Razor">
+            <h3>ER-GK20 Mini V-Razor</h3>
+            <img src="imagem/32.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('ER-GK20 Mini V-Razor', 'https://drive.google.com/file/d/1qWvsEgSGe-_5_Goa3Gfo1qeQMCzLHdDL/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="ER-GK20 Mini V-Razor">
+            <h3>ER-GK20 Mini V-Razor</h3>
+            <img src="imagem/33.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('ER-GK20 Mini V-Razor', 'https://drive.google.com/file/d/1qfMjSaO6ttpkmRgncYEX7jNAptpX9y8E/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="ER-GK20 Mini V-Razor">
+            <h3>ER-GK20 Mini V-Razor</h3>
+            <img src="imagem/34.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('ER-GK20 Mini V-Razor', 'https://drive.google.com/file/d/1qe_UNoa-ngzYmi915s9k8n8HxSnOZBpb/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="GB80 D-Perfector">
+            <h3>GB80 D-Perfector</h3>
+            <img src="imagem/35.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('GB80 D-Perfector', 'https://drive.google.com/file/d/1qm4aY9JPUzekoC0PRNN5TNw_xI5X-a8A/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Microondas GB-68">
+            <h3>Microondas GB-68</h3>
+            <img src="imagem/36.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Microondas GB-68', 'https://drive.google.com/file/d/1qmGBLODOeB8Js-eioyB1GG2KRt7af6dE/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/37.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/1zOKZHs0HDb3mwrS_Jdn8_9mNlesqKift/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+
+        <div class="produto" data-name="Geladeira">
+            <h3>Geladeira</h3>
+            <img src="imagem/pilulabb64.jpg" alt="NR-BB64PV1X / BB64PV1B">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Geladeira', 'https://drive.google.com/file/d/12Xf-3Gn7rCZHgUt2vD1JDnEptRMHCtfL/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Função para compartilhar via WhatsApp
+        function shareViaWhatsApp(text, imageUrl) {
+            const message = `${text} ${imageUrl}`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Função para compartilhar usando o compartilhamento nativo do navegador
+        function shareViaNative(text, imageUrl) {
+            const message = `${text} ${imageUrl}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Compartilhar Pílula do Conhecimento',
+                    text: message,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert("Compartilhamento não suportado pelo seu navegador.");
+            }
+        }
+
+        // Função unificada para decidir o método de compartilhamento
+        function shareProduct(text, imageUrl) {
+            // Use o compartilhamento nativo se disponível, caso contrário, use o WhatsApp
+            if (navigator.share) {
+                shareViaNative(text, imageUrl);
+            } else {
+                shareViaWhatsApp(text, imageUrl);
+            }
+        }
+
+        // Adiciona o listener para o DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const productItems = document.querySelectorAll('.produto');
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+
+                productItems.forEach(item => {
+                    const productName = item.dataset.name.toLowerCase();
+                    if (productName.includes(query)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

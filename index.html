@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo de Trabalho</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* --- CSS Gerado pelo Tailwind (Embutido para compatibilidade) --- */
+        :root {
+            --tw-blue-50: #eff6ff; --tw-blue-400: #60a5fa; --tw-blue-600: #2563eb;
+            --tw-gray-100: #f3f4f6; --tw-gray-200: #e5e7eb; --tw-gray-300: #d1d5db; --tw-gray-600: #4b5563; --tw-gray-700: #374151; --tw-gray-800: #1f2937; --tw-gray-900: #111827;
+        }
+        *, ::before, ::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb; }
+        html { line-height: 1.5; -webkit-text-size-adjust: 100%; -moz-tab-size: 4; tab-size: 4; }
+        body { margin: 0; line-height: inherit; }
+        h1, h2, p, a, button, label, input, textarea, ul, li, aside, header, main, nav { margin: 0; padding: 0; }
+        h1, h2 { font-size: inherit; font-weight: inherit; }
+        a { color: inherit; text-decoration: inherit; }
+        button, input, textarea { font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; padding: 0; background-color: transparent; border-radius: 0; }
+        button, [type='button'], [type='reset'], [type='submit'] { -webkit-appearance: button; background-color: transparent; background-image: none; }
+        button:focus, input:focus, textarea:focus { outline: 2px solid transparent; outline-offset: 2px; }
+        .container { width: 100%; margin-right: auto; margin-left: auto; padding-right: 1rem; padding-left: 1rem; }
+        @media (min-width: 640px) { .container { max-width: 640px; padding-right: 2rem; padding-left: 2rem; } }
+        @media (min-width: 768px) { .container { max-width: 768px; } }
+        @media (min-width: 1024px) { .container { max-width: 1024px; } }
+        @media (min-width: 1280px) { .container { max-width: 1280px; } }
+
+        .fixed { position: fixed; }
+        .absolute { position: absolute; }
+        .relative { position: relative; }
+        .sticky { position: sticky; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .top-0 { top: 0; }
+        .left-0 { left: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-30 { z-index: 30; }
+        .m-auto { margin: auto; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .block { display: block; }
+        .flex { display: flex; }
+        .hidden { display: none; }
+        .h-full { height: 100%; }
+        .min-h-screen { min-height: 100vh; }
+        .w-8 { width: 2rem; }
+        .w-72 { width: 18rem; }
+        .w-full { width: 100%; }
+        .transform { transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); }
+        .-translate-x-full { --tw-translate-x: -100%; transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .space-y-1 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse))); margin-bottom: calc(0.25rem * var(--tw-space-y-reverse))); }
+        .overflow-y-auto { overflow-y: auto; }
+        .rounded-md { border-radius: 0.375rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-full { border-radius: 9999px; }
+        .border-b { border-bottom-width: 1px; }
+        .bg-white { background-color: #fff; }
+        .bg-gray-100 { background-color: var(--tw-gray-100); }
+        .bg-black { background-color: #000; }
+        .bg-opacity-50 { --tw-bg-opacity: 0.5; background-color: rgba(0, 0, 0, var(--tw-bg-opacity)); }
+        .p-2 { padding: 0.5rem; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .text-center { text-align: center; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .text-blue-600 { color: var(--tw-blue-600); }
+        .text-gray-300 { color: var(--tw-gray-300); }
+        .text-gray-600 { color: var(--tw-gray-600); }
+        .text-gray-700 { color: var(--tw-gray-700); }
+        .text-gray-800 { color: var(--tw-gray-800); }
+        .text-gray-200 { color: var(--tw-gray-200); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+        .hover\:bg-blue-50:hover { background-color: var(--tw-blue-50); }
+        .hover\:bg-gray-100:hover { background-color: var(--tw-gray-100); }
+        
+        .dark .dark\:bg-gray-800 { background-color: var(--tw-gray-800); }
+        .dark .dark\:bg-gray-900 { background-color: var(--tw-gray-900); }
+        .dark .dark\:border-gray-700 { border-color: var(--tw-gray-700); }
+        .dark .dark\:text-blue-400 { color: var(--tw-blue-400); }
+        .dark .dark\:text-gray-200 { color: var(--tw-gray-200); }
+        .dark .dark\:text-gray-300 { color: var(--tw-gray-300); }
+        .dark .dark\:hover\:bg-gray-700:hover { background-color: var(--tw-gray-700); }
+
+        @media (min-width: 640px) {
+            .sm\:hidden { display: none; }
+            .sm\:p-6 { padding: 1.5rem; }
+        }
+
+        /* --- Custom App Styles --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: var(--tw-gray-100);
+            color: var(--tw-gray-800);
+        }
+        .dark body {
+            background-color: var(--tw-gray-900);
+            color: var(--tw-gray-200);
+        }
+        
+        #sidenav {
+            transition: transform 0.3s ease-in-out;
+        }
+        #main-content {
+            transition: margin-left 0.3s ease-in-out;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Estilos para os cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #ffffff; /* Fundo branco para os cards */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .dark .card {
+            background-color: var(--tw-gray-800);
+        }
+
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background-color: #f3f4f6; /* Cor de hover mais sutil */
+        }
+        .dark .card:hover {
+            background-color: var(--tw-gray-700);
+        }
+
+        .card h3 {
+            margin-top: 0; /* Ajuste para alinhar com o ícone */
+            margin-bottom: 6px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--tw-gray-600);
+        }
+        .dark .card p {
+             color: var(--tw-gray-300);
+        }
+
+        .card .icon {
+            font-size: 24px;
+            color: var(--tw-blue-600);
+            margin-right: 12px;
+        }
+        .dark .card .icon {
+            color: var(--tw-blue-400);
+        }
+        
+        /* Estilos para o iframe */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 100px); /* Altura total menos o header e padding */
+            overflow: hidden;
+            border: none;
+            background: #f3f4f6;
+            border-radius: 8px;
+        }
+        .dark .iframe-container {
+             background: var(--tw-gray-900);
+        }
+        
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .iframe-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.8);
+            z-index: 10;
+        }
+        .dark .iframe-loading {
+            background: rgba(31, 41, 55, 0.8); /* Fundo escuro para loading */
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--tw-blue-600);
+            animation: spin 1s ease-in-out infinite;
+        }
+        .dark .spinner {
+            border-top-color: var(--tw-blue-400);
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <aside id="sidenav" class="bg-white dark:bg-gray-800 shadow-lg fixed top-0 left-0 h-full w-72 transform -translate-x-full z-30 overflow-y-auto">
+        <div class="p-4 border-b dark:border-gray-700">
+            <h2 class="text-xl font-bold text-blue-600 dark:text-blue-400">Menu Principal</h2>
+        </div>
+        <nav class="flex flex-col p-2 space-y-1">
+            <a href="#home" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">home</span>
+                Início
+            </a>
+            <a href="roteiro.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">edit_road</span>
+                Crie seu Roteiro
+            </a>
+            <a href="deposito.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">cloud_upload</span>
+                Depósito da Rede
+            </a>
+            <a href="manuais.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">book</span>
+                Manuais
+            </a>
+            <a href="receitas.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">receipt_long</span>
+                Receitas
+            </a>
+            <a href="produtos.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">inventory_2</span>
+                Produtos
+            </a>
+            <a href="mododemo.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">smart_display</span>
+                Modo Demo
+            </a>
+            <a href="explica.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">lightbulb</span>
+                Explica
+            </a>
+             <a href="pilulas.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">medication</span>
+                Pílulas
+            </a>
+            <a href="tutoriais-geladeira.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">kitchen</span>
+                Drops Geladeira
+            </a>
+            <a href="tutoriais-microondas.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">microwave</span>
+                Drops Micro-ondas
+            </a>
+            <a href="tutoriais-lavadora.html" class="nav-link flex items-center px-4 py-2 rounded-md hover:bg-blue-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined mr-3">local_laundry_service</span>
+                Drops Lavadoras
+            </a>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden sm:hidden"></div>
+
+    <div id="main-content" class="relative min-h-screen">
+        <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
+            <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                <button id="menu-btn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="material-symbols-outlined text-gray-600 dark:text-gray-300">menu</span>
+                </button>
+                <h1 id="header-title" class="text-lg font-semibold text-center">Início</h1>
+                <div class="w-8"></div> </div>
+        </header>
+
+        <main class="p-4 sm:p-6">
+            
+            <section id="home" class="content-section active">
+                <div class="card-container">
+                    <a href="https://webmail-seguro.com.br/?_task=mail" target="_blank" rel="noopener noreferrer" class="card">
+                        <div style="display:flex; align-items:center;">
+                            <span class="material-symbols-outlined icon">mail</span>
+                            <h3>Webmail</h3>
+                        </div>
+                        <p>Acesse seu e-mail corporativo.</p>
+                    </a>
+
+                    <a href="https://panasonic-br.zendesk.com/hc/pt-br/articles/360057195812-Localize-uma-assist%C3%AAncia" target="_blank" rel="noopener noreferrer" class="card">
+                        <div style="display:flex; align-items:center;">
+                            <span class="material-symbols-outlined icon">build</span>
+                            <h3>Assistência Técnica</h3>
+                        </div>
+                        <p>Encontre a assistência mais próxima.</p>
+                    </a>
+
+                    <a href="https://tradeview.gtrademark.com.br/controle-de-despesas/minhas-despesas" target="_blank" rel="noopener noreferrer" class="card">
+                        <div style="display:flex; align-items:center;">
+                            <span class="material-symbols-outlined icon">bar_chart</span>
+                            <h3>TradeView 3.0</h3>
+                        </div>
+                        <p>Acesse a plataforma de gestão.</p>
+                    </a>
+                </div>
+            </section>
+            
+            <section id="external-page" class="content-section">
+                <div class="iframe-container">
+                    <div class="iframe-loading">
+                        <div class="spinner"></div>
+                    </div>
+                    <iframe id="external-frame" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <section id="crie-seu-roteiro" class="content-section">
+                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+                    <h2 class="text-2xl font-bold mb-4">Crie seu Roteiro</h2>
+                    <p class="mb-4">Esta seção é um exemplo. O conteúdo para 'Crie seu Roteiro' será carregado no iframe acima.</p>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Element selectors
+            const menuBtn = document.getElementById('menu-btn');
+            const sidenav = document.getElementById('sidenav');
+            const overlay = document.getElementById('overlay');
+            const mainContent = document.getElementById('main-content');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const headerTitle = document.getElementById('header-title');
+            const externalFrame = document.getElementById('external-frame');
+            const iframeLoading = document.querySelector('.iframe-loading');
+            const externalPageSection = document.getElementById('external-page');
+
+            // --- Menu Toggle Functionality ---
+            function closeMenu() {
+                sidenav.style.transform = `translateX(-100%)`;
+                mainContent.style.marginLeft = '0';
+                overlay.classList.add('hidden');
+            }
+
+            function openMenu() {
+                sidenav.style.transform = 'translateX(0px)';
+                 if (window.innerWidth >= 640) { // sm breakpoint
+                     mainContent.style.marginLeft = sidenav.offsetWidth + 'px';
+                 } else {
+                    overlay.classList.remove('hidden');
+                 }
+            }
+            
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isClosed = sidenav.style.transform.includes('-100');
+                if (isClosed) {
+                    openMenu();
+                } else {
+                    closeMenu();
+                }
+            });
+
+            overlay.addEventListener('click', closeMenu);
+
+            // --- Page Navigation ---
+            function showContent(targetId) {
+                // Esconde todas as seções de conteúdo
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Mostra a seção alvo
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+            }
+
+            function updateHeader(linkElement) {
+                if(linkElement) {
+                     // Clona o nó para não alterar o original e obter o texto sem o ícone
+                     const linkClone = linkElement.cloneNode(true);
+                     const icon = linkClone.querySelector('.material-symbols-outlined');
+                     if (icon) {
+                         linkClone.removeChild(icon);
+                     }
+                     headerTitle.textContent = linkClone.textContent.trim();
+                } else {
+                     headerTitle.textContent = 'Início';
+                }
+            }
+            
+            // Função para carregar página interna (com cards)
+            function loadInternalPage(hash, linkElement) {
+                showContent(hash.substring(1));
+                updateHeader(linkElement);
+            }
+
+            // Função para carregar página externa no iframe
+            function loadExternalPage(url, linkElement) {
+                // ⭐ INÍCIO DA CORREÇÃO ⭐
+                // Garante que todas as outras seções (incluindo a #home) sejam escondidas
+                showContent('external-page');
+                // ⭐ FIM DA CORREÇÃO ⭐
+                
+                // Mostra o spinner de carregamento
+                iframeLoading.style.display = 'flex';
+                
+                // Atualiza o título do cabeçalho
+                updateHeader(linkElement);
+                
+                // Carrega a URL no iframe
+                externalFrame.src = url;
+                
+                // Esconde o spinner quando o iframe terminar de carregar
+                externalFrame.onload = function() {
+                    iframeLoading.style.display = 'none';
+                };
+            }
+
+            // Manipulador de cliques nos links do menu
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Verifica se o link abre em nova aba
+                    if (this.getAttribute('target') === '_blank') {
+                        return; // Deixa o navegador lidar com isso
+                    }
+
+                    e.preventDefault(); // Previne a navegação padrão para os outros links
+                    
+                    if (href.startsWith('#')) {
+                        loadInternalPage(href, this);
+                    } 
+                    else if (href.endsWith('.html')) {
+                        loadExternalPage(href, this);
+                    }
+                    
+                    // Fecha o menu em telas pequenas após o clique
+                    if (window.innerWidth < 640) { // sm breakpoint
+                        closeMenu();
+                    }
+                });
+            });
+
+            // Lida com a navegação pelos botões de voltar/avançar do navegador (se necessário)
+            window.addEventListener('popstate', () => {
+                const hash = window.location.hash || '#home';
+                const link = document.querySelector(`.nav-link[href="${hash}"]`);
+                loadInternalPage(hash, link);
+            });
+
+            // Configuração inicial da página
+            function initialize() {
+                const hash = window.location.hash || '#home';
+                const link = document.querySelector(`.nav-link[href="${hash}"]`);
+                loadInternalPage(hash, link);
+                closeMenu(); 
+            }
+            
+            initialize();
+        });
+    </script>
+</body>
+</html>

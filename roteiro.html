@@ -1,0 +1,1372 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro de Atendimento - Leste,CEO e SPC</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+</head>
+<style>
+/* ==========================================================================
+   CSS para o Sistema de Ajuda (Intro.js)
+   Design System: "Clean & Fresh"
+   ========================================================================== */
+
+/* 1. Botão Flutuante de Ajuda (FAB)
+-------------------------------------------------------------------------- */
+.help-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+
+  /* Cores e Estilo */
+  background-color: var(--color-primary, #007BFF); /* Usa a variável principal */
+  color: var(--color-white, #FFFFFF);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow, 0 4px 12px rgba(0, 0, 0, 0.08));
+
+  /* Layout e Animação */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition, all 0.25s ease-in-out);
+}
+
+.help-button .material-icons {
+  font-size: 28px;
+}
+
+.help-button:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); /* Sombra colorida no hover */
+}
+
+
+/* 2. Tooltip Principal do Tutorial
+-------------------------------------------------------------------------- */
+.introjs-tooltip {
+  max-width: 350px;
+  padding: 24px;
+
+  /* Estilo de Card */
+  background-color: var(--color-white, #FFFFFF);
+  border: 1px solid var(--color-border, #dee2e6);
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--box-shadow, 0 4px 12px rgba(0, 0, 0, 0.08));
+
+  /* Tipografia */
+  color: var(--color-text-primary, #212529);
+  font-family: var(--font-family, 'Roboto', sans-serif);
+}
+
+/* Tipografia interna do Tooltip */
+.introjs-tooltip h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-text-primary, #212529);
+  margin: 0 0 10px 0;
+}
+.introjs-tooltip p, .introjs-tooltip li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary, #6c757d);
+}
+.introjs-tooltip ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+/* Flecha que aponta para o elemento */
+.introjs-arrow.top { border-bottom-color: var(--color-white, #FFFFFF); }
+.introjs-arrow.bottom { border-top-color: var(--color-white, #FFFFFF); }
+.introjs-arrow.left { border-right-color: var(--color-white, #FFFFFF); }
+.introjs-arrow.right { border-left-color: var(--color-white, #FFFFFF); }
+
+
+/* 3. Botões de Navegação do Tutorial (Próximo, Anterior, Concluir)
+-------------------------------------------------------------------------- */
+.introjs-button {
+  /* Aplicando o estilo de botão primário */
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: var(--font-family, 'Roboto', sans-serif);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+  text-shadow: none;
+  cursor: pointer;
+  transition: var(--transition, all 0.25s ease-in-out);
+
+  /* Cores e Bordas */
+  background-color: var(--color-primary, #007BFF);
+  color: var(--color-white, #FFFFFF);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius, 8px);
+}
+
+.introjs-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Botão de Pular (estilo sutil) */
+.introjs-skipbutton {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-secondary, #6c757d);
+  text-decoration: none;
+  transition: var(--transition, all 0.25s ease-in-out);
+}
+.introjs-skipbutton:hover {
+  color: var(--color-primary, #007BFF);
+}
+
+
+/* 4. Barra de Progresso e Navegação por Pontos (Bullets)
+-------------------------------------------------------------------------- */
+.introjs-progress {
+  background-color: var(--color-border, #dee2e6);
+  border-radius: var(--border-radius, 8px);
+}
+
+.introjs-progressbar {
+  background-color: var(--color-primary, #007BFF);
+  border-radius: var(--border-radius, 8px);
+}
+
+.introjs-bullets ul li a {
+  background-color: var(--color-border, #dee2e6);
+}
+.introjs-bullets ul li a.active {
+  background-color: var(--color-primary, #007BFF);
+}
+
+
+/* 5. Destaque do Elemento e Número do Passo
+-------------------------------------------------------------------------- */
+.introjs-helperLayer {
+  background: rgba(255, 255, 255, 0.2); /* Fundo branco semi-transparente */
+  border: 2px solid var(--color-primary, #007BFF);
+  box-shadow: 0 0 0 1000em rgba(24, 25, 31, 0.7); /* Overlay escuro */
+  border-radius: var(--border-radius, 8px);
+}
+
+.introjs-helperNumberLayer {
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  line-height: 28px;
+  font-weight: 500;
+  background: var(--color-primary, #007BFF);
+  color: var(--color-white, #FFFFFF);
+  border: 2px solid var(--color-white, #FFFFFF);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+  /* ==========================================================================
+   1. VARIÁVEIS E CONFIGURAÇÃO GLOBAL
+   Design System: "Clean & Fresh"
+   ========================================================================== */
+
+:root {
+  /* Paleta de Cores */
+  --color-primary: #007BFF; /* Um azul profissional e vibrante */
+  --color-primary-light: #E6F2FF;
+  --color-success: #28a745;
+  --color-error: #dc3545;
+  --color-error-light: #FEEBEE;
+  --color-text-primary: #212529; /* Preto suave para leitura */
+  --color-text-secondary: #6c757d; /* Cinza para textos de apoio */
+  --color-border: #dee2e6; /* Borda sutil */
+  --color-background: #f8f9fa; /* Fundo levemente acinzentado */
+  --color-white: #FFFFFF;
+
+  /* Tipografia */
+  --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* Outras Propriedades */
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition: all 0.25s ease-in-out;
+}
+
+/* ==========================================================================
+   2. ESTILOS DE BASE E RESET
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   3. LAYOUT E ESTRUTURA
+   ========================================================================== */
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Card Principal */
+.card {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================================================
+   4. TIPOGRAFIA
+   ========================================================================== */
+
+h1, h2 {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: 1.75rem; } /* 28px */
+h2 { font-size: 1.5rem; }  /* 24px */
+
+h1 .material-icons, h2 .material-icons {
+  font-size: 1.2em;
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   5. COMPONENTES DE FORMULÁRIO (Inputs, Selects, Labels)
+   ========================================================================== */
+
+/* Grupo de Formulário com Floating Label */
+.form-group.floating-label {
+  position: relative;
+}
+
+.form-label {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  background-color: var(--color-white);
+  padding: 0 5px;
+  margin: 0;
+  transition: var(--transition);
+  pointer-events: none;
+}
+
+.form-control {
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Animação do Floating Label */
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+  top: -10px;
+  left: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+/* Hack para o placeholder não atrapalhar o seletor :not(:placeholder-shown) */
+.form-control::placeholder {
+  color: transparent;
+}
+
+/* Estilo customizado para o Select */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 20px;
+}
+
+
+/* ==========================================================================
+   6. BOTÕES
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--box-shadow);
+}
+
+.btn-icon {
+  font-size: 1.25rem;
+}
+
+/* Botão Primário (Preenchido) */
+.btn.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Botão Secundário (Contornado) */
+.btn.btn-secondary {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Botão de Erro / Remover (Suave) */
+.btn.btn-error {
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+  border-color: transparent;
+}
+.btn.btn-error:hover {
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+/* Botão de Texto */
+.btn.btn-text {
+  background-color: transparent;
+  color: var(--color-primary);
+  box-shadow: none;
+  transform: none;
+}
+.btn.btn-text:hover {
+  background-color: var(--color-primary-light);
+  transform: none;
+  box-shadow: none;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   7. SEÇÕES DINÂMICAS E LISTAS
+   ========================================================================== */
+
+/* Seção de adicionar lojas */
+#storeEntriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.store-entry {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.time-inputs {
+  grid-column: 1 / -1; /* Ocupa todas as colunas */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-inputs .form-group {
+  flex-grow: 1;
+}
+
+.time-inputs span {
+  padding-top: 10px;
+  color: var(--color-text-secondary);
+}
+
+.time-inputs .btn-error {
+  padding: 8px;
+  min-width: auto;
+  height: 40px;
+  align-self: center;
+  margin-top: 8px;
+}
+
+/* Cards dos dias adicionados */
+#daysContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.day-card {
+  padding: 20px;
+  gap: 16px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 12px;
+}
+
+.day-date {
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.store-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+.store-item:last-child {
+  border-bottom: none;
+}
+
+.store-info div:last-child {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.store-item .btn-error {
+  padding: 6px;
+  min-width: auto;
+  background: transparent;
+  color: var(--color-text-secondary);
+  box-shadow: none;
+}
+.store-item .btn-error:hover {
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+}
+
+/* Bloco de Saída do Roteiro Gerado */
+#output {
+  background-color: #e9ecef;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #343a40;
+  border: 1px solid var(--color-border);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   8. AJUSTES PARA TELAS MENORES (RESPONSIVIDADE)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+  .container {
+    margin: 16px auto;
+    padding: 0 16px;
+  }
+  .card {
+    padding: 20px;
+  }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+
+  .store-entry {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons, .add-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>
+                <i class="material-icons">assignment</i>
+                Roteiro de Atendimento</h1>
+
+            <div class="form-group floating-label">
+                <select id="month" class="form-control" required>
+                    <option value="" disabled selected></option>
+                    <option value="JANEIRO">JANEIRO</option>
+                    <option value="FEVEREIRO">FEVEREIRO</option>
+                    <option value="MARÇO">MARÇO</option>
+                    <option value="ABRIL">ABRIL</option>
+                    <option value="MAIO">MAIO</option>
+                    <option value="JUNHO">JUNHO</option>
+                    <option value="JULHO">JULHO</option>
+                    <option value="AGOSTO">AGOSTO</option>
+                    <option value="SETEMBRO">SETEMBRO</option>
+                    <option value="OUTUBRO">OUTUBRO</option>
+                    <option value="NOVEMBRO">NOVEMBRO</option>
+                    <option value="DEZEMBRO">DEZEMBRO</option>
+                </select>
+                <label for="month" class="form-label">*MÊS:*</label>
+            </div>
+
+            <div class="form-group floating-label">
+                <input type="date" id="startDate" class="form-control" required>
+                <label for="startDate" class="form-label">*INÍCIO DA FREQUÊNCIA:*</label>
+            </div>
+
+            <div class="form-group floating-label">
+                <input type="date" id="endDate" class="form-control" required>
+                <label for="endDate" class="form-label">*FINAL DA FREQUÊNCIA:*</label>
+            </div>
+
+            <div class="form-group floating-label">
+                <select id="employeeName" class="form-control" required>
+                    <option value="" disabled selected></option>
+                    <option value="Reinaldo">Reinaldo</option>
+                    <option value="Fabio">Fábio</option>
+                    <option value="Carla">Carla Vieira</option>
+                    <option value="Daniel">Daniel Gomes</option>
+                    <option value="Helen">Helen</option>
+                    <option value="Marjory">Márjory</option>
+                    <option value="Elane">Elane</option>
+                    <option value="Rosi">Rosi</option>
+                    <option value="Rosangela">Rosângela</option>
+                    <option value="Danielly">Danielly</option>
+                    <option value="Fernanda">Fernanda Santos</option>
+                    <option value="Monique">Monique</option>
+                    <option value="Patricia">Patrícia Santos</option>
+                    <option value="Renata">Renata Santos</option>
+                </select>
+                <label for="employeeName" class="form-label">*NOME:*</label>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>
+                <i class="material-icons">add_circle_outline</i>
+                Adicionar Dias de Atendimento
+            </h2>
+
+            <div class="form-group floating-label">
+                <input type="date" id="dayDate" class="form-control" required>
+                <label for="dayDate" class="form-label">Data</label>
+            </div>
+
+            <div id="storeEntriesContainer">
+                <!-- As entradas de loja serão adicionadas aqui -->
+            </div>
+
+            <div class="add-buttons">
+                <button type="button" id="addStoreBtn" class="btn btn-text">
+                    <i class="material-icons btn-icon">add</i>
+                    Adicionar Loja
+                </button>
+                <button type="button" id="addDayBtn" class="btn btn-primary">
+                    <i class="material-icons btn-icon">event</i>
+                    Adicionar Dia
+                </button>
+            </div>
+        </div>
+
+        <div id="daysContainer">
+            <!-- Os dias adicionados serão exibidos aqui -->
+        </div>
+
+        <div class="action-buttons">
+            <button type="button" id="clearBtn" class="btn btn-error">
+                <i class="material-icons btn-icon">delete</i>
+                Limpar Tudo
+            </button>
+            <button type="button" id="generateBtn" class="btn btn-secondary">
+                <i class="material-icons btn-icon">description</i>
+                Gerar Roteiro
+            </button>
+            <button type="button" id="shareBtn" class="btn btn-primary">
+                <i class="material-icons btn-icon">share</i>
+                Compartilhar
+            </button>
+        </div>
+
+        <div id="output"></div>
+    </div>
+    <!-- Adicione este código ANTES do fechamento do </body> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/intro.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/introjs.min.css" rel="stylesheet">
+
+<script>
+// Adiciona o botão de ajuda dinamicamente
+const helpButton = document.createElement('div');
+helpButton.id = 'helpButton';
+helpButton.className = 'help-button';
+helpButton.innerHTML = '<i class="material-icons">help_outline</i>';
+document.body.appendChild(helpButton);
+
+// Estilos para o tutorial
+const style = document.createElement('style');
+style.textContent = `
+  .help-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    background-color: #6200ee;
+    color: white;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .help-button:hover {
+    background-color: #3700b3;
+    transform: scale(1.1);
+  }
+  
+  .introjs-tooltip {
+    max-width: 400px;
+    border-radius: 8px;
+  }
+  
+  .introjs-button {
+    color: white !important;
+    text-shadow: none !important;
+    background-color: #6200ee !important;
+    border: none !important;
+    border-radius: 4px !important;
+  }
+  
+  .introjs-button:hover {
+    background-color: #3700b3 !important;
+  }
+  
+  .introjs-skipbutton {
+    color: #757575 !important;
+  }
+  
+  .introjs-bullets ul li a {
+    background-color: #bb86fc !important;
+  }
+  
+  .introjs-bullets ul li a.active {
+    background-color: #6200ee !important;
+  }
+  
+  .introjs-helperNumberLayer {
+    background: #3700b3 !important;
+  }
+`;
+document.head.appendChild(style);
+
+// Configura os passos do tutorial
+const tutorialSteps = [
+  {
+    element: document.querySelector('.container .card:first-child'),
+    intro: '<h4>Informações Básicas</h4><p>Preencha os dados principais do roteiro:</p><ul><li>Mês de referência</li><li>Período da frequência</li><li>Nome do colaborador</li></ul>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('#month'),
+    intro: '<h4>Selecione o Mês</h4><p>Escolha o mês para o qual está criando o roteiro de atendimento.</p>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('#startDate'),
+    intro: '<h4>Data de Início</h4><p>Defina a data inicial do período de atendimento.</p>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('#endDate'),
+    intro: '<h4>Data Final</h4><p>Defina a data final do período de atendimento.</p>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('#employeeName'),
+    intro: '<h4>Nome do Colaborador</h4><p>Selecione o nome do colaborador que realizará os atendimentos.</p>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('.container .card:nth-child(2)'),
+    intro: '<h4>Adicionar Dias de Atendimento</h4><p>Aqui você pode adicionar os dias específicos de atendimento e as lojas que serão visitadas.</p>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('#dayDate'),
+    intro: '<h4>Data do Atendimento</h4><p>Selecione a data em que serão realizados os atendimentos.</p>',
+    position: 'bottom'
+  },
+  {
+    element: document.querySelector('#addStoreBtn'),
+    intro: '<h4>Adicionar Loja</h4><p>Clique aqui para adicionar uma loja ao dia de atendimento.</p><p>O sistema possui autocompletar para facilitar a busca.</p>',
+    position: 'top'
+  },
+  {
+    element: document.querySelector('#addDayBtn'),
+    intro: '<h4>Adicionar Dia</h4><p>Após adicionar todas as lojas do dia, clique aqui para salvar o dia no roteiro.</p>',
+    position: 'top'
+  },
+  {
+    element: document.querySelector('#daysContainer'),
+    intro: '<h4>Dias Adicionados</h4><p>Aqui aparecerão todos os dias de atendimento que você adicionou ao roteiro.</p><p>Você pode remover lojas individuais ou dias completos.</p>',
+    position: 'top'
+  },
+  {
+    element: document.querySelector('.action-buttons'),
+    intro: '<h4>Ações Finais</h4><p>Após adicionar todos os dias:</p><ul><li><strong>Limpar Tudo:</strong> Reinicia todo o formulário</li><li><strong>Gerar Roteiro:</strong> Cria o texto formatado</li><li><strong>Compartilhar:</strong> Envia pelo WhatsApp</li></ul>',
+    position: 'top'
+  },
+  {
+    element: document.querySelector('#generateBtn'),
+    intro: '<h4>Gerar Roteiro</h4><p>Clique aqui para gerar o texto formatado do roteiro com todas as informações.</p>',
+    position: 'top'
+  },
+  {
+    element: document.querySelector('#shareBtn'),
+    intro: '<h4>Compartilhar</h4><p>Após gerar o roteiro, clique aqui para compartilhá-lo via WhatsApp.</p>',
+    position: 'top'
+  }
+];
+
+// Função para iniciar o tutorial
+function iniciarTutorial() {
+  introJs().setOptions({
+    steps: tutorialSteps,
+    nextLabel: 'Próximo',
+    prevLabel: 'Anterior',
+    skipLabel: 'Pular',
+    doneLabel: 'Concluir',
+    showProgress: true,
+    showBullets: true,
+    exitOnOverlayClick: false,
+    disableInteraction: false,
+    tooltipClass: 'custom-tooltip'
+  }).start();
+}
+
+// Inicia o tutorial na primeira visita
+if (!localStorage.getItem('tutorialRoteiroVisto')) {
+  setTimeout(() => {
+    iniciarTutorial();
+    localStorage.setItem('tutorialRoteiroVisto', 'true');
+  }, 1000);
+}
+
+// Configura o botão de ajuda
+document.getElementById('helpButton').addEventListener('click', iniciarTutorial);
+
+// Monitora mudanças na tabela para atualizar os elementos do tutorial
+const observer = new MutationObserver(() => {
+  if (document.querySelector('#daysContainer .day-card') && !document.querySelector('[data-tutorial-init]')) {
+    document.querySelector('body').setAttribute('data-tutorial-init', 'true');
+    
+    // Atualiza os passos do tutorial que dependem desses elementos
+    tutorialSteps[9].element = document.querySelector('#daysContainer');
+    
+    // Se for a primeira visita e o tutorial ainda não apareceu
+    if (!localStorage.getItem('tutorialRoteiroVisto')) {
+      iniciarTutorial();
+    }
+  }
+});
+
+observer.observe(document.getElementById('daysContainer'), {
+  childList: true,
+  subtree: true
+});
+
+// Monitora geração do roteiro para mostrar dica contextual
+document.addEventListener('DOMContentLoaded', function() {
+  const generateBtn = document.getElementById('generateBtn');
+  const shareBtn = document.getElementById('shareBtn');
+  
+  generateBtn.addEventListener('click', function() {
+    if (document.getElementById('output').textContent && !localStorage.getItem('tutorialGerarVisto')) {
+      setTimeout(() => {
+        introJs().setOptions({
+          steps: [tutorialSteps[12]],
+          showBullets: false,
+          showButtons: true,
+          showProgress: false,
+          doneLabel: 'Entendi'
+        }).start();
+        localStorage.setItem('tutorialGerarVisto', 'true');
+      }, 500);
+    }
+  });
+});
+</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Banco de dados de lojas
+            const storeDatabase = [];
+
+            // Elementos do formulário
+            const monthSelect = document.getElementById('month');
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            const employeeNameSelect = document.getElementById('employeeName');
+            const dayDateInput = document.getElementById('dayDate');
+            const addStoreBtn = document.getElementById('addStoreBtn');
+            const addDayBtn = document.getElementById('addDayBtn');
+            const generateBtn = document.getElementById('generateBtn');
+            const shareBtn = document.getElementById('shareBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const storeEntriesContainer = document.getElementById('storeEntriesContainer');
+            const daysContainer = document.getElementById('daysContainer');
+            const outputDiv = document.getElementById('output');
+            
+            // Array para armazenar os dias de atendimento
+            let scheduleDays = JSON.parse(localStorage.getItem('scheduleDays')) || [];
+            
+            // Configurar datas mínimas/máximas
+            const today = new Date();
+            dayDateInput.min = formatDate(today);
+            
+            // Carregar dados salvos
+            loadSavedData();
+            
+            // Adicionar loja ao dia atual
+            addStoreBtn.addEventListener('click', function() {
+                addStoreEntry();
+            });
+            
+            // Adicionar dia ao roteiro
+            addDayBtn.addEventListener('click', function() {
+                addDayToSchedule();
+            });
+            
+            // Gerar roteiro
+            generateBtn.addEventListener('click', function() {
+                generateSchedule();
+            });
+            
+            // Compartilhar no WhatsApp
+            shareBtn.addEventListener('click', function() {
+                shareOnWhatsApp();
+            });
+            
+            // Limpar tudo
+            clearBtn.addEventListener('click', function() {
+                clearAll();
+            });
+            
+            // Função para carregar dados salvos
+            function loadSavedData() {
+                if (scheduleDays.length > 0) {
+                    updateDaysView();
+                }
+                
+                // Carregar mês atual
+                const currentMonth = new Date().getMonth();
+                monthSelect.selectedIndex = currentMonth + 1; // +1 por causa da opção vazia
+                
+                // Disparar eventos de change para atualizar labels
+                if (monthSelect.value) {
+                    const event = new Event('change');
+                    monthSelect.dispatchEvent(event);
+                }
+            }
+            
+            // Função para adicionar entrada de loja
+            function addStoreEntry(storeData = null) {
+                const storeEntry = document.createElement('div');
+                storeEntry.className = 'store-entry';
+                
+                storeEntry.innerHTML = `
+                    <div class="form-group floating-label" style="flex: 1;">
+                        <input type="text" class="form-control store-id" required 
+                               value="${storeData ? storeData.id : ''}">
+                        <label class="form-label ${storeData ? 'active' : ''}">ID</label>
+                    </div>
+                    <div class="form-group floating-label" style="flex: 2;">
+                        <input type="text" class="form-control store-name" required 
+                               value="${storeData ? storeData.name : ''}">
+                        <label class="form-label ${storeData ? 'active' : ''}">Nome da Loja</label>
+                    </div>
+                    <div class="time-inputs">
+                        <div class="form-group floating-label">
+                            <input type="time" class="form-control start-time" required 
+                                   value="${storeData ? storeData.defaultStart : ''}">
+                            <label class="form-label ${storeData ? 'active' : ''}">Início</label>
+                        </div>
+                        <span>às</span>
+                        <div class="form-group floating-label">
+                            <input type="time" class="form-control end-time" required 
+                                   value="${storeData ? storeData.defaultEnd : ''}">
+                            <label class="form-label ${storeData ? 'active' : ''}">Fim</label>
+                        </div>
+                        <button type="button" class="btn btn-error" onclick="this.parentElement.parentElement.remove()" style="min-width: 36px; height: 36px; padding: 0;">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                `;
+                
+                storeEntriesContainer.appendChild(storeEntry);
+                
+                // Adicionar autocomplete para ID e Nome
+                const idInput = storeEntry.querySelector('.store-id');
+                const nameInput = storeEntry.querySelector('.store-name');
+                
+                setupAutocomplete(idInput, 'id');
+                setupAutocomplete(nameInput, 'name');
+                
+                // Quando o ID é alterado, tentar auto-preenher o nome
+                idInput.addEventListener('change', function() {
+                    const store = storeDatabase.find(s => s.id === this.value);
+                    if (store) {
+                        const nameInput = this.closest('.store-entry').querySelector('.store-name');
+                        nameInput.value = store.name;
+                        nameInput.dispatchEvent(new Event('change'));
+                        
+                        // Preencher horários padrão
+                        const startTime = this.closest('.store-entry').querySelector('.start-time');
+                        const endTime = this.closest('.store-entry').querySelector('.end-time');
+                        startTime.value = store.defaultStart;
+                        endTime.value = store.defaultEnd;
+                    }
+                });
+                
+                // Quando o nome é alterado, tentar auto-preenher o ID
+                nameInput.addEventListener('change', function() {
+                    const store = storeDatabase.find(s => s.name === this.value);
+                    if (store) {
+                        const idInput = this.closest('.store-entry').querySelector('.store-id');
+                        idInput.value = store.id;
+                        idInput.dispatchEvent(new Event('change'));
+                        
+                        // Preencher horários padrão
+                        const startTime = this.closest('.store-entry').querySelector('.start-time');
+                        const endTime = this.closest('.store-entry').querySelector('.end-time');
+                        startTime.value = store.defaultStart;
+                        endTime.value = store.defaultEnd;
+                    }
+                });
+            }
+            
+            // Configurar autocomplete para um input
+            function setupAutocomplete(input, field) {
+                input.addEventListener('input', function() {
+                    const val = this.value.toLowerCase();
+                    const matches = storeDatabase.filter(store => 
+                        String(store[field]).toLowerCase().includes(val)
+                    ).slice(0, 5);
+                    
+                    // Remove any existing autocomplete dropdown
+                    closeAllAutocompleteLists();
+                    
+                    if (!val || matches.length === 0) return;
+                    
+                    const autocompleteList = document.createElement('div');
+                    autocompleteList.setAttribute('id', 'autocomplete-list');
+                    autocompleteList.setAttribute('class', 'autocomplete-items');
+                    this.parentNode.appendChild(autocompleteList);
+                    
+                    matches.forEach(store => {
+                        const item = document.createElement('div');
+                        item.innerHTML = `<strong>${store.id}</strong> - ${store.name}`;
+                        item.addEventListener('click', function() {
+                            input.value = store[field];
+                            closeAllAutocompleteLists();
+                            
+                            // Disparar evento para preencher os outros campos
+                            const changeEvent = new Event('change');
+                            input.dispatchEvent(changeEvent);
+                        });
+                        autocompleteList.appendChild(item);
+                    });
+                });
+                
+                function closeAllAutocompleteLists() {
+                    const items = document.getElementsByClassName('autocomplete-items');
+                    for (let i = 0; i < items.length; i++) {
+                        items[i].parentNode.removeChild(items[i]);
+                    }
+                }
+                
+                document.addEventListener('click', function(e) {
+                    closeAllAutocompleteLists(e.target);
+                });
+            }
+            
+            // Função para adicionar dia ao roteiro
+            function addDayToSchedule() {
+                const date = dayDateInput.value;
+                if (!date) {
+                    alert('Por favor, selecione uma data.');
+                    return;
+                }
+                
+                const storeEntries = storeEntriesContainer.querySelectorAll('.store-entry');
+                if (storeEntries.length === 0) {
+                    alert('Por favor, adicione pelo menos uma loja para este dia.');
+                    return;
+                }
+                
+                const stores = [];
+                storeEntries.forEach(entry => {
+                    const id = entry.querySelector('.store-id').value;
+                    const name = entry.querySelector('.store-name').value;
+                    const startTime = entry.querySelector('.start-time').value;
+                    const endTime = entry.querySelector('.end-time').value;
+                    
+                    if (id && name && startTime && endTime) {
+                        stores.push({
+                            id: id,
+                            name: name,
+                            startTime: formatTime(startTime),
+                            endTime: formatTime(endTime)
+                        });
+                    }
+                });
+                
+                if (stores.length === 0) {
+                    alert('Por favor, preencha todos os campos das lojas.');
+                    return;
+                }
+                
+                // Verificar se já existe um dia com esta data
+                const existingDayIndex = scheduleDays.findIndex(d => d.date === formatDateForDisplay(date));
+                
+                if (existingDayIndex >= 0) {
+                    // Mesclar com dia existente
+                    scheduleDays[existingDayIndex].stores = [...scheduleDays[existingDayIndex].stores, ...stores];
+                } else {
+                    // Adicionar novo dia
+                    scheduleDays.push({
+                        date: formatDateForDisplay(date),
+                        stores: stores
+                    });
+                }
+                
+                // Ordenar os dias por data
+                scheduleDays.sort((a, b) => {
+                    return new Date(a.date.split('/').reverse().join('-')) - new Date(b.date.split('/').reverse().join('-'));
+                });
+                
+                // Ordenar lojas dentro de cada dia por horário
+                scheduleDays.forEach(day => {
+                    day.stores.sort((a, b) => a.startTime.localeCompare(b.startTime));
+                });
+                
+                // Salvar no localStorage
+                localStorage.setItem('scheduleDays', JSON.stringify(scheduleDays));
+                
+                // Atualizar visualização
+                updateDaysView();
+                
+                // Limpar campos
+                storeEntriesContainer.innerHTML = '';
+                dayDateInput.value = '';
+                
+                // Sugerir próxima data (dia útil seguinte)
+                suggestNextDate();
+            }
+            
+            // Sugerir próxima data (dia útil)
+            function suggestNextDate() {
+                if (scheduleDays.length === 0) return;
+                
+                const lastDate = new Date(scheduleDays[scheduleDays.length - 1].date.split('/').reverse().join('-'));
+                let nextDate = new Date(lastDate);
+                
+                // Encontrar próximo dia útil (segunda a sexta)
+                do {
+                    nextDate.setDate(nextDate.getDate() + 1);
+                } while (nextDate.getDay() === 0 || nextDate.getDay() === 6);
+                
+                dayDateInput.value = formatDate(nextDate);
+            }
+            
+            // Função para atualizar a visualização dos dias
+            function updateDaysView() {
+                daysContainer.innerHTML = '';
+                
+                if (scheduleDays.length === 0) {
+                    const emptyState = document.createElement('div');
+                    emptyState.className = 'card';
+                    emptyState.innerHTML = `
+                        <div style="text-align: center; padding: 24px; color: var(--text-secondary);">
+                            <i class="material-icons" style="font-size: 48px; color: var(--divider);">event_note</i>
+                            <p>Nenhum dia de atendimento adicionado</p>
+                        </div>
+                    `;
+                    daysContainer.appendChild(emptyState);
+                    return;
+                }
+                
+                scheduleDays.forEach((day, index) => {
+                    const dayCard = document.createElement('div');
+                    dayCard.className = 'day-card';
+                    
+                    let storesHtml = '';
+                    day.stores.forEach(store => {
+                        storesHtml += `
+                            <div class="store-item">
+                                <div class="store-info">
+                                    <div>ID: ${store.id} - ${store.name}</div>
+                                    <div style="font-size: 14px; color: var(--text-secondary);">${store.startTime} às ${store.endTime}</div>
+                                </div>
+                                <div class="store-actions">
+                                    <button class="btn btn-error" onclick="removeStoreFromDay(${index}, '${store.id}')" style="min-width: 36px; height: 36px; padding: 0;">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    dayCard.innerHTML = `
+                        <div class="day-header">
+                            <div class="day-date">
+                                <i class="material-icons">event</i>
+                                ${day.date} (${getDayName(day.date)})
+                            </div>
+                            <button class="btn btn-error" onclick="removeDay(${index})">
+                                <i class="material-icons btn-icon">delete</i>
+                                Remover Dia
+                            </button>
+                        </div>
+                        ${storesHtml}
+                    `;
+                    
+                    daysContainer.appendChild(dayCard);
+                    
+                    // Adicionar divisor se não for o último dia
+                    if (index !== scheduleDays.length - 1) {
+                        const divider = document.createElement('div');
+                        divider.className = 'divider';
+                        daysContainer.appendChild(divider);
+                    }
+                });
+            }
+            
+            // Obter nome do dia da semana
+// Obter nome do dia da semana
+function getDayName(dateStr) {
+    const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+    // Ajuste para o formato DD/MM/YYYY
+    const [day, month, year] = dateStr.split('/');
+    const date = new Date(year, month - 1, day);
+    return days[date.getDay()];
+}
+            
+            // Função para gerar o roteiro formatado
+            function generateSchedule() {
+                const month = monthSelect.value;
+                const startDate = startDateInput.value ? formatDateForDisplay(startDateInput.value) : '';
+                const endDate = endDateInput.value ? formatDateForDisplay(endDateInput.value) : '';
+                const employeeName = employeeNameSelect.value;
+                
+                if (!month || !startDate || !endDate || !employeeName || scheduleDays.length === 0) {
+                    alert('Por favor, preencha todos os campos principais e adicione pelo menos um dia de atendimento.');
+                    return;
+                }
+                
+                let scheduleText = `*SUGESTÃO ROTEIRO - LESTE,CEO E SPC*\n`;
+                scheduleText += `*MÊS:* ${month}\n\n`;
+                scheduleText += `*INÍCIO DA FREQUÊNCIA:* ${startDate}\n`;
+                scheduleText += `*FINAL DA FREQUÊNCIA:* ${endDate}\n\n`;
+                scheduleText += `*NOME:* ${employeeName}\n\n`;
+                
+                scheduleDays.forEach(day => {
+                    scheduleText += `*${day.date} (${getDayName(day.date)})*\n`;
+                    day.stores.forEach(store => {
+                        scheduleText += `ID: ${store.id} - ${store.name} - ${store.startTime} às ${store.endTime}\n`;
+                    });
+                    
+                    // Adicionar separador se não for o último dia
+                    if (scheduleDays.indexOf(day) !== scheduleDays.length - 1) {
+                        scheduleText += `_____________\n\n`;
+                    }
+                });
+                
+                scheduleText += `\n*Total de dias:* ${scheduleDays.length}\n`;
+                scheduleText += `*Total de lojas:* ${scheduleDays.reduce((acc, day) => acc + day.stores.length, 0)}`;
+                
+                outputDiv.textContent = scheduleText;
+                outputDiv.style.display = 'block';
+                
+                // Rolagem suave para a saída
+                outputDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Função para compartilhar no WhatsApp
+            function shareOnWhatsApp() {
+                if (!outputDiv.textContent) {
+                    alert('Por favor, gere o roteiro primeiro.');
+                    return;
+                }
+                
+                const text = encodeURIComponent(outputDiv.textContent);
+                const url = `https://wa.me/?text=${text}`;
+                window.open(url, '_blank');
+            }
+            
+            // Função para limpar tudo
+            function clearAll() {
+                if (confirm('Tem certeza que deseja limpar todos os dados? Esta ação não pode ser desfeita.')) {
+                    monthSelect.value = '';
+                    startDateInput.value = '';
+                    endDateInput.value = '';
+                    employeeNameSelect.value = '';
+                    dayDateInput.value = '';
+                    storeEntriesContainer.innerHTML = '';
+                    daysContainer.innerHTML = '';
+                    outputDiv.textContent = '';
+                    outputDiv.style.display = 'none';
+                    scheduleDays = [];
+                    localStorage.removeItem('scheduleDays');
+                    
+                    // Atualizar a visualização para mostrar o estado vazio
+                    updateDaysView();
+                }
+            }
+            
+            // Funções auxiliares
+            function formatDate(date) {
+                const d = new Date(date);
+                let month = '' + (d.getMonth() + 1);
+                let day = '' + d.getDate();
+                const year = d.getFullYear();
+                
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+                
+                return [year, month, day].join('-');
+            }
+            
+            function formatDateForDisplay(dateStr) {
+                const parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+                if (parts.length === 3) {
+                    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                }
+                return dateStr;
+            }
+            
+            function formatTime(timeStr) {
+                if (!timeStr) return '';
+                const [hours, minutes] = timeStr.split(':');
+                return `${hours}:${minutes}`;
+            }
+            
+            // Inicializar a visualização
+            updateDaysView();
+            
+            // Funções globais para uso nos botões
+            window.removeStoreFromDay = function(dayIndex, storeId) {
+                scheduleDays[dayIndex].stores = scheduleDays[dayIndex].stores.filter(store => store.id !== storeId);
+                
+                // Se não houver mais lojas, remover o dia
+                if (scheduleDays[dayIndex].stores.length === 0) {
+                    scheduleDays.splice(dayIndex, 1);
+                }
+                
+                // Salvar no localStorage
+                localStorage.setItem('scheduleDays', JSON.stringify(scheduleDays));
+                
+                updateDaysView();
+            };
+            
+            window.removeDay = function(dayIndex) {
+                scheduleDays.splice(dayIndex, 1);
+                
+                // Salvar no localStorage
+                localStorage.setItem('scheduleDays', JSON.stringify(scheduleDays));
+                
+                updateDaysView();
+            };
+            
+            // Configurar data inicial e final padrão (primeiro e último dia do mês atual)
+            const currentDate = new Date();
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            
+            startDateInput.value = formatDate(firstDay);
+            endDateInput.value = formatDate(lastDay);
+            
+            // Disparar eventos para atualizar labels
+            startDateInput.dispatchEvent(new Event('change'));
+            endDateInput.dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+</html>

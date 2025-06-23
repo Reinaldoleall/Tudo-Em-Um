@@ -1,0 +1,124 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5; /* Cor de fundo padrão do Android */
+    color: #212121; /* Cor de texto padrão */
+}
+
+header {
+    background-color: #3F51B5; /* Azul padrão do Material Design */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+}
+
+header p {
+    font-size: 18px;
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+h2 {
+    font-size: 24px;
+    color: #3F51B5; /* Cor de destaque para os títulos */
+    margin-bottom: 15px;
+}
+
+/* Estilo para o botão de compartilhar */
+.share-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    color: #ffffff;
+    background-color: #25D366; /* Cor do WhatsApp */
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.share-btn:hover {
+    background-color: #128C7E; /* Cor mais escura do WhatsApp para hover */
+}/* Estilo para o campo de pesquisa */
+#searchInput {
+    width: calc(100% - 22px); /* Ajusta a largura para incluir padding e border */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#searchInput::placeholder {
+    color: #aaa;
+}
+
+.product-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product-item {
+    width: 200%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.product-item img {
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #3F51B5; /* Cor do botão igual ao header */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #303F9F; /* Azul escuro para o hover */
+}
+
+footer {
+    background-color: #3F51B5; /* Cor igual ao header */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 14px;
+}

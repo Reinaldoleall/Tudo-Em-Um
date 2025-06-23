@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Demonstração - Produtos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos básicos do layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Campo de busca */
+        #search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            margin: 20px auto;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            display: block;
+        }
+
+        /* Container de produtos */
+        .produtos {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Estilizando cada produto */
+        .produto {
+            margin: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 320px;
+            text-align: center;
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .produto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ajuste das imagens dos produtos */
+        .produto img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Estilo do botão de compartilhar */
+        .share-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background-color: #128C7E;
+        }
+
+        .produto h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .produto {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            #search-input {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="home">
+        <div class="intro">
+            <h1>Modo Demonstração dos Produtos</h1>
+            <p>Veja detalhes dos produtos e compartilhe pelo WhatsApp</p>
+        </div>
+        <section id="search-section">
+            <input type="text" id="search-input" placeholder="Pesquisar produtos...">
+        </section>
+    </section>
+
+    <section class="produtos">
+        <h2>Lavadoras</h2>
+        <div class="produto" data-name="NA-F140B6T/W/NA-F160B6W">
+            <h3>NA-F140B6T/W/NA-F160B6W</h3>
+            <img src="imagem/f16f14b6.jpg" alt="Demonstração F140 e F160B6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: NA-F140B6T/W/NA-F160B6W', 'https://drive.google.com/file/d/1oPg4MaHZSZoxbnypkMMPtUdXw8W1WeXd/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="NA-F120B1W/T">
+            <h3>NA-F120B1W/T</h3>
+            <img src="imagem/f120b1wt.jpg" alt="Demonstração F120B1W">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: NA-F120B1W/T', 'https://drive.google.com/file/d/1oOKeuRIUpFqxlOOVDgbMU1s622LhQek4/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="NA-F170P6T">
+            <h3>NA-F170P6T</h3>
+            <img src="imagem/f170p6.jpg" alt="Demonstração F170P6">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: NA-F170P6T', 'https://drive.google.com/file/d/1oR6rqQsSxMIh0_B3EByL82omRZkNxArs/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+    </section>
+
+    <section class="produtos">
+        <h2>Geladeiras</h2>
+        <div class="produto" data-name="NR-BT41">
+            <h3>NR-BT41</h3>
+            <img src="imagem/bt41d.jpg" alt="Demonstração BT41">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: NR-BT41', 'https://drive.google.com/file/d/1oAup9NjPeQeDWYIv3_yDmYvxMUjPoGsC/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="NR-BT40/BT42">
+            <h3>NR-BT40/BT42</h3>
+            <img src="imagem/bt4240d.jpg" alt="Demonstração BT40 e BT42">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: NR-BT40/BT42', 'https://drive.google.com/file/d/1oCwzE1aIyR4Kg9VhguKOwerfqW5gwmAe/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="NR-BT43">
+            <h3>NR-BT43</h3>
+            <img src="imagem/bt43d.jpg" alt="Demonstração BT43">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: NR-BT43', 'https://drive.google.com/file/d/1oGMJATGLyvYGPuTQo-d5nDjlPgRv1yA_/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="BT51">
+            <h3>BT51</h3>
+            <img src="imagem/bt51d.jpg" alt="Demonstração BT51">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: BT51', 'https://drive.google.com/file/d/1oJyuqzBEIrkBWbjjO5q1o1oWyaw7e3QC/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="BT55">
+            <h3>BT55</h3>
+            <img src="imagem/bt55d.jpg" alt="Demonstração BT55">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: BT55', 'https://drive.google.com/file/d/1oKl2Q5qNwjawtU2GFJwJ3FaIx3Nevym-/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="BB53">
+            <h3>BB53</h3>
+            <img src="imagem/bb53d.jpg" alt="Demonstração BB53">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: BB53', 'https://drive.google.com/file/d/1o5ijBfqJR1B1JN0yB-9gfh8Qn-Nsmids/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+        <div class="produto" data-name="BB71">
+            <h3>BB71</h3>
+            <img src="imagem/bb71d.jpg" alt="Demonstração BB71">
+            <a href="javascript:void(0);" class="share-btn" onclick="shareProduct('Imagem do produto: BB71', 'https://drive.google.com/file/d/1o7QTl6duWdjcCYJZQVZDrXEXeaS27RoX/view?usp=drivesdk')">
+                <i class="fab fa-whatsapp"></i> Compartilhar
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Função para compartilhar via WhatsApp
+        function shareViaWhatsApp(text, imageUrl) {
+            const message = `${text} ${imageUrl}`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Função para compartilhar usando o compartilhamento nativo do navegador
+        function shareViaNative(text, imageUrl) {
+            const message = `${text} ${imageUrl}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Compartilhar Produto',
+                    text: message,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert("Compartilhamento não suportado pelo seu navegador.");
+            }
+        }
+
+        // Função unificada para decidir o método de compartilhamento
+        function shareProduct(text, imageUrl) {
+            // Use o compartilhamento nativo se disponível, caso contrário, use o WhatsApp
+            if (navigator.share) {
+                shareViaNative(text, imageUrl);
+            } else {
+                shareViaWhatsApp(text, imageUrl);
+            }
+        }
+
+        // Adiciona o listener para o DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const productItems = document.querySelectorAll('.produto');
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+
+                productItems.forEach(item => {
+                    const productName = item.dataset.name.toLowerCase();
+                    if (productName.includes(query)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
