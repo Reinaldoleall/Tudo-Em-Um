@@ -189,22 +189,20 @@
         .dark .card .icon {
             color: var(--tw-blue-400);
         }
-        /* Substitua o CSS existente para iframe-container por este: */
+        /* Container do iframe ajustado para respeitar o header */
 .iframe-container {
     position: fixed;
-    top: 0;
+    top: 60px; /* Altura do header */
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
     overflow: hidden;
     border: none;
     background: #f3f4f6;
-    z-index: 0; /* Garante que fique acima de outros elementos */
-    margin: 0;
-    padding: 0;
+    z-index: 30;
 }
 
-/* Ajuste para o iframe dentro do container */
+/* Iframe dentro do container */
 .iframe-container iframe {
     width: 100%;
     height: 100%;
@@ -212,7 +210,7 @@
     display: block;
 }
 
-/* Ajuste para o loading spinner */
+/* Loading spinner centralizado */
 .iframe-loading {
     position: absolute;
     top: 0;
@@ -223,13 +221,12 @@
     justify-content: center;
     align-items: center;
     background: rgba(255,255,255,0.9);
-    z-index: 50;
+    z-index: 40;
 }
 
-/* Esconde o header e sidebar quando o iframe estiver ativo */
-.iframe-active header,
-.iframe-active #sidenav {
-    display: none;
+/* Ajuste para quando o menu lateral estiver aberto */
+.menu-open .iframe-container {
+    left: 288px; /* Largura do menu lateral */
 }
 
 /* Versão dark mode */
