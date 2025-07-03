@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Relatório para WhatsApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+      :root {
+    --primary-color: #6200ee;
+    --primary-dark: #3700b3;
+    --secondary-color: #03dac6;
+    --background: #f5f5f5;
+    --surface: #ffffff;
+    --error: #b00020;
+    --border-radius: 6px;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background);
+    color: #333;
+    line-height: 1.5;
+    padding: 15px;
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.card {
+    background-color: var(--surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #666;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(98, 0, 238, 0.1);
+}
+
+.button {
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.button-secondary {
+    background-color: var(--secondary-color);
+    color: #000;
+}
+
+.button-tertiary {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.add-product {
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px dashed var(--primary-color);
+    padding: 8px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.product-item {
+    position: relative;
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.remove-product {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: #eee;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.preview-card {
+    background-color: var(--surface);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-top: 15px;
+    white-space: pre-wrap;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.photo-preview {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+
+.photo-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.remove-photo-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--error);
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .form-group {
+        min-width: 100%;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .button {
+        width: 100%;
+    }
+}
+
+        /* Estilos para a captura de fotos */
+        .photo-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .photo-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .photo-thumbnail-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .photo-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: block;
+        }
+
+        .remove-photo-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background-color: var(--error);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Modal da Câmera e Alerta Customizado */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .camera-view {
+            width: 100%;
+            background: #333;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        .camera-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .captured-photo {
+            width: 100%;
+            display: block;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        #whatsapp-instructions {
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: var(--border-radius);
+            color: #1e88e5;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Informações</h1>
+    
+    <div class="card">
+        <h2 class="card-title">Informações da Revenda</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="revenda">Revenda</label>
+                <input type="text" id="revenda" placeholder="Ex: Lojas Cem">
+            </div>
+            <div class="form-group">
+                <label for="filial">Filial</label>
+                <input type="text" id="filial" placeholder="Ex: 133">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="id">ID</label>
+                <input type="text" id="id" placeholder="Ex: 86631">
+            </div>
+            <div class="form-group">
+                <label for="regional">Regional</label>
+                <input type="text" id="regional" placeholder="Ex: Leste">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cidade">Cidade/Estado</label>
+            <input type="text" id="cidade" placeholder="Ex: Rio de Janeiro / RJ">
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">Produtos Panasonic</h2>
+        <div id="panasonic-products" class="product-section"></div>
+        <button id="add-panasonic" class="add-product" type="button">
+            <span class="material-icons">add</span> Adicionar Produto Panasonic
+        </button>
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">Produtos Concorrência</h2>
+        <div id="competition-products" class="product-section"></div>
+        <button id="add-competition" class="add-product" type="button">
+            <span class="material-icons">add</span> Adicionar Produto Concorrência
+        </button>
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">Informações Adicionais</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="coordenador">Coordenador</label>
+                <input type="text" id="coordenador" placeholder="Ex: Anderson Duarte">
+            </div>
+            <div class="form-group">
+                <label for="consultor">Consultor</label>
+                <input type="text" id="consultor" placeholder="Ex: Reinaldo Leal">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="periodo">Período</label>
+            <input type="text" id="periodo" placeholder="Data automática" readonly>
+        </div>
+    </div>
+    
+    <div class="button-group">
+        <button id="generate-btn" class="button button-primary">
+            <span class="material-icons">description</span> Gerar Relatório
+        </button>
+        <button id="whatsapp-btn" class="button button-secondary hidden">
+            <span class="material-icons">send</span> Enviar Relatório
+        </button>
+        <button id="whatsapp-photos-btn" class="button button-tertiary hidden">
+            <span class="material-icons">photo_camera</span> Enviar Fotos
+        </button>
+    </div>
+    
+    <div id="preview-card" class="preview-card hidden"></div>
+    
+    <!-- Modal da Câmera -->
+    <div id="camera-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <video id="camera-view" class="camera-view" autoplay playsinline></video>
+            <canvas id="camera-canvas" class="hidden"></canvas>
+            <img id="captured-photo" class="captured-photo hidden">
+            <div class="camera-buttons">
+                <button id="take-photo-btn" class="button button-primary">
+                    <span class="material-icons">photo_camera</span> Tirar Foto
+                </button>
+                <button id="retake-photo-btn" class="button button-secondary hidden">
+                    <span class="material-icons">replay</span> Repetir
+                </button>
+                <button id="save-photo-btn" class="button button-primary hidden">
+                    <span class="material-icons">save</span> Salvar
+                </button>
+                <button id="close-camera-btn" class="button button-tertiary">
+                    <span class="material-icons">close</span> Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Alerta Customizado -->
+    <div id="custom-alert-modal" class="modal-overlay hidden">
+        <div class="modal-container" style="max-width: 400px; text-align: center;">
+            <p id="custom-alert-message" style="margin-bottom: 20px; font-size: 18px;"></p>
+            <button id="custom-alert-close-btn" class="button button-primary">OK</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- ELEMENTOS DO DOM ---
+            const periodoInput = document.getElementById('periodo');
+            const addPanasonicBtn = document.getElementById('add-panasonic');
+            const addCompetitionBtn = document.getElementById('add-competition');
+            const generateBtn = document.getElementById('generate-btn');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const whatsappPhotosBtn = document.getElementById('whatsapp-photos-btn');
+            const previewCard = document.getElementById('preview-card');
+            
+            // --- ELEMENTOS DA CÂMERA ---
+            const cameraModal = document.getElementById('camera-modal');
+            const cameraView = document.getElementById('camera-view');
+            const cameraCanvas = document.getElementById('camera-canvas');
+            const capturedPhoto = document.getElementById('captured-photo');
+            const takePhotoBtn = document.getElementById('take-photo-btn');
+            const retakePhotoBtn = document.getElementById('retake-photo-btn');
+            const savePhotoBtn = document.getElementById('save-photo-btn');
+            const closeCameraBtn = document.getElementById('close-camera-btn');
+
+            // --- ELEMENTOS DO ALERTA CUSTOMIZADO ---
+            const customAlertModal = document.getElementById('custom-alert-modal');
+            const customAlertMessage = document.getElementById('custom-alert-message');
+            const customAlertCloseBtn = document.getElementById('custom-alert-close-btn');
+
+            // --- VARIÁVEIS DE ESTADO ---
+            let panasonicCounter = 0;
+            let competitionCounter = 0;
+            let currentCameraStream = null;
+            let currentProductId = null;
+            let allPhotos = []; // Array para armazenar { id, productId, dataUrl, modelName }
+
+            // --- FUNÇÕES DE INICIALIZAÇÃO ---
+            function initialize() {
+                const today = new Date();
+                const formattedDate = today.toLocaleDateString('pt-BR');
+                periodoInput.value = formattedDate;
+
+                addEventListeners();
+                
+                addProduct('panasonic', panasonicCounter++);
+                addProduct('competition', competitionCounter++);
+            }
+
+            function addEventListeners() {
+                addPanasonicBtn.addEventListener('click', () => addProduct('panasonic', panasonicCounter++));
+                addCompetitionBtn.addEventListener('click', () => addProduct('competition', competitionCounter++));
+                generateBtn.addEventListener('click', generateReport);
+                whatsappBtn.addEventListener('click', sendWhatsApp);
+                whatsappPhotosBtn.addEventListener('click', sendPhotosWhatsApp);
+                
+                takePhotoBtn.addEventListener('click', takePhoto);
+                retakePhotoBtn.addEventListener('click', retakePhoto);
+                savePhotoBtn.addEventListener('click', savePhoto);
+                closeCameraBtn.addEventListener('click', closeCamera);
+                
+                customAlertCloseBtn.addEventListener('click', () => customAlertModal.classList.add('hidden'));
+            }
+
+            // --- FUNÇÕES DE MODAL ---
+            function showModal(message) {
+                customAlertMessage.textContent = message;
+                customAlertModal.classList.remove('hidden');
+            }
+
+            // --- FUNÇÕES DE PRODUTO ---
+            function addProduct(type, id) {
+                const containerId = type === 'panasonic' ? 'panasonic-products' : 'competition-products';
+                const container = document.getElementById(containerId);
+                
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product-item';
+                const productId = `${type}-product-${id}`;
+                productDiv.id = productId;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-product';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.title = 'Remover Produto';
+                removeBtn.addEventListener('click', () => {
+                    allPhotos = allPhotos.filter(photo => photo.productId !== productId);
+                    productDiv.remove();
+                    if (!previewCard.classList.contains('hidden')) {
+                        whatsappPhotosBtn.classList.toggle('hidden', allPhotos.length === 0);
+                    }
+                });
+                
+                const html = `
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="product-type">
+                                <option value="REF">Refrigerador</option>
+                                <option value="LAV">Lavadora</option>
+                                <option value="MWO">Microondas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Modelo</label>
+                            <input type="text" class="product-model" placeholder="Ex: NN-ST67L 34L">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Preço</label>
+                            <input type="text" class="product-price" placeholder="Ex: 1.068,00">
+                        </div>
+                        <div class="form-group">
+                            <label>Parcelamento</label>
+                            <input type="text" class="product-installment" placeholder="Ex: 1+11">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Valor da Parcela</label>
+                        <input type="text" class="product-monthly" placeholder="Ex: 101,80/mês">
+                    </div>
+                    <div class="form-group">
+                        <label>Preço Original (opcional)</label>
+                        <input type="text" class="product-original" placeholder="Ex: 3.828,00">
+                    </div>
+                    <div class="photo-section">
+                        <label>Fotos do Produto</label>
+                        <div class="photo-preview" id="${type}-photos-${id}"></div>
+                        <button type="button" class="button button-tertiary take-photo-btn" data-product-id="${productId}">
+                            <span class="material-icons">photo_camera</span> Adicionar Foto
+                        </button>
+                    </div>
+                `;
+                
+                productDiv.innerHTML = html;
+                productDiv.prepend(removeBtn);
+                container.appendChild(productDiv);
+                
+                productDiv.querySelector('.take-photo-btn').addEventListener('click', function() {
+                    openCamera(this.dataset.productId);
+                });
+            }
+
+            // --- FUNÇÕES DA CÂMERA ---
+            async function openCamera(productId) {
+                currentProductId = productId;
+                cameraModal.classList.remove('hidden');
+                
+                try {
+                    if (currentCameraStream) {
+                        currentCameraStream.getTracks().forEach(track => track.stop());
+                    }
+                    currentCameraStream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { facingMode: 'environment' },
+                        audio: false 
+                    });
+                    cameraView.srcObject = currentCameraStream;
+                    retakePhoto();
+                } catch (err) {
+                    console.error("Erro ao acessar a câmera:", err);
+                    showModal("Não foi possível acessar a câmera. Verifique as permissões do navegador.");
+                    closeCamera();
+                }
+            }
+            
+            function takePhoto() {
+                cameraCanvas.width = cameraView.videoWidth;
+                cameraCanvas.height = cameraView.videoHeight;
+                const context = cameraCanvas.getContext('2d');
+                context.drawImage(cameraView, 0, 0, cameraCanvas.width, cameraCanvas.height);
+                
+                capturedPhoto.src = cameraCanvas.toDataURL('image/jpeg');
+                
+                cameraView.classList.add('hidden');
+                capturedPhoto.classList.remove('hidden');
+                
+                takePhotoBtn.classList.add('hidden');
+                retakePhotoBtn.classList.remove('hidden');
+                savePhotoBtn.classList.remove('hidden');
+            }
+            
+            function retakePhoto() {
+                cameraView.classList.remove('hidden');
+                capturedPhoto.classList.add('hidden');
+                
+                takePhotoBtn.classList.remove('hidden');
+                retakePhotoBtn.classList.add('hidden');
+                savePhotoBtn.classList.add('hidden');
+            }
+            
+            function savePhoto() {
+                const photoDataUrl = capturedPhoto.src;
+                const photoId = `photo-${Date.now()}`;
+                
+                let modelName = 'sem-modelo';
+                const productElement = document.getElementById(currentProductId);
+                if (productElement) {
+                    const modelInput = productElement.querySelector('.product-model');
+                    if (modelInput && modelInput.value) {
+                        modelName = modelInput.value;
+                    }
+                }
+
+                allPhotos.push({ 
+                    id: photoId, 
+                    productId: currentProductId, 
+                    dataUrl: photoDataUrl,
+                    modelName: modelName
+                });
+                
+                const photoPreviewContainer = document.querySelector(`#${currentProductId} .photo-preview`);
+                const thumbnailContainer = document.createElement('div');
+                thumbnailContainer.className = 'photo-thumbnail-container';
+
+                const thumbnail = document.createElement('img');
+                thumbnail.className = 'photo-thumbnail';
+                thumbnail.src = photoDataUrl;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-photo-btn';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.title = 'Remover Foto';
+                removeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    allPhotos = allPhotos.filter(p => p.id !== photoId);
+                    thumbnailContainer.remove();
+                    if (!previewCard.classList.contains('hidden')) {
+                        whatsappPhotosBtn.classList.toggle('hidden', allPhotos.length === 0);
+                    }
+                });
+                
+                thumbnailContainer.appendChild(thumbnail);
+                thumbnailContainer.appendChild(removeBtn);
+                photoPreviewContainer.appendChild(thumbnailContainer);
+                
+                if (!previewCard.classList.contains('hidden')) {
+                    whatsappPhotosBtn.classList.remove('hidden');
+                }
+
+                closeCamera();
+            }
+            
+            function closeCamera() {
+                cameraModal.classList.add('hidden');
+                if (currentCameraStream) {
+                    currentCameraStream.getTracks().forEach(track => track.stop());
+                    currentCameraStream = null;
+                }
+                cameraView.srcObject = null;
+                capturedPhoto.src = '';
+            }
+            
+            // --- FUNÇÕES DE RELATÓRIO E WHATSAPP ---
+            function generateReport() {
+                const revenda = document.getElementById('revenda').value;
+                const filial = document.getElementById('filial').value;
+                const id = document.getElementById('id').value;
+                const regional = document.getElementById('regional').value;
+                const cidade = document.getElementById('cidade').value;
+                const coordenador = document.getElementById('coordenador').value;
+                const consultor = document.getElementById('consultor').value;
+                const periodo = periodoInput.value;
+                
+                if (!revenda || !filial || !id || !regional || !cidade || !coordenador || !consultor) {
+                    showModal('Por favor, preencha todos os campos obrigatórios de Informações.');
+                    return;
+                }
+                
+                const panasonicProducts = getProductsFromDOM('#panasonic-products .product-item');
+                const competitionProducts = getProductsFromDOM('#competition-products .product-item');
+                
+                if (panasonicProducts.length === 0 && competitionProducts.length === 0) {
+                    showModal('Adicione pelo menos um produto (Panasonic ou Concorrência).');
+                    return;
+                }
+                
+                let reportText = `*Revenda:* ${revenda}\n`;
+                reportText += `*Filial:* ${filial}\n`;
+                reportText += `*Id* ${id}\n`;
+                reportText += `*Regional:* ${regional}\n`;
+                reportText += `*Cidade:* ${cidade}\n\n`;
+                
+                if (panasonicProducts.length > 0) {
+                    reportText += `*Panasonic*\n\n`;
+                    reportText += formatProductsText(panasonicProducts);
+                }
+                
+                if (competitionProducts.length > 0) {
+                    reportText += `*Concorrência*\n\n`;
+                    reportText += formatProductsText(competitionProducts);
+                }
+                
+                reportText += `*Coordenador:* ${coordenador}\n`;
+                reportText += `*Consultor:* ${consultor}\n`;
+                reportText += `*Período:* ${periodo}`;
+                
+                previewCard.textContent = reportText;
+                previewCard.classList.remove('hidden');
+                previewCard.dataset.reportText = encodeURIComponent(reportText);
+                
+                whatsappBtn.classList.remove('hidden');
+                whatsappPhotosBtn.classList.toggle('hidden', allPhotos.length === 0);
+            }
+
+            function getProductsFromDOM(selector) {
+                const products = [];
+                document.querySelectorAll(selector).forEach(p => {
+                    const model = p.querySelector('.product-model').value;
+                    const price = p.querySelector('.product-price').value;
+                    if (model && price) {
+                        products.push({
+                            type: p.querySelector('.product-type').value,
+                            model: model,
+                            price: price,
+                            installment: p.querySelector('.product-installment').value,
+                            monthly: p.querySelector('.product-monthly').value,
+                            original: p.querySelector('.product-original').value,
+                        });
+                    }
+                });
+                return products;
+            }
+
+            function formatProductsText(products) {
+                let text = '';
+                products.forEach(product => {
+                    const productType = getProductTypeName(product.type);
+                    text += `${productType} ${product.model}\n`;
+                    if (product.original) text += `de R$${product.original} por `;
+                    text += `R$${product.price}`;
+                    if(product.installment) text += ` ou ${product.installment}`;
+                    text += `\n`;
+                    if(product.monthly) text += `de R$${product.monthly}`;
+                    text += `\n\n`;
+                });
+                return text;
+            }
+            
+            function sendWhatsApp() {
+                const reportText = previewCard.dataset.reportText;
+                if(reportText) {
+                    window.open(`https://wa.me/?text=${reportText}`, '_blank');
+                }
+            }
+            
+            async function sendPhotosWhatsApp() {
+                if (allPhotos.length === 0) {
+                    showModal('Nenhuma foto foi adicionada para enviar.');
+                    return;
+                }
+
+                // Tenta usar a API de compartilhamento nativa (ideal para celulares)
+                if (navigator.share && navigator.canShare) {
+                    try {
+                        const files = await Promise.all(allPhotos.map(async (photo, index) => {
+                            const response = await fetch(photo.dataUrl);
+                            const blob = await response.blob();
+                            const sanitizedModelName = photo.modelName.replace(/[^a-z0-9.-]/gi, '_').toLowerCase() || 'sem-modelo';
+                            const fileName = `${sanitizedModelName}_foto_${index + 1}.jpg`;
+                            return new File([blob], fileName, { type: 'image/jpeg' });
+                        }));
+
+                        // Verifica se o compartilhamento de arquivos é possível
+                        if (navigator.canShare({ files: files })) {
+                            // Compartilha apenas os arquivos, sem texto ou título
+                            await navigator.share({
+                                files: files
+                            });
+                            return; // Sucesso, encerra a função
+                        }
+                    } catch (err) {
+                        console.error('Erro ao usar a Web Share API:', err);
+                        // Se falhar, continua para o método de fallback abaixo
+                    }
+                }
+
+                // Fallback para Desktops ou navegadores sem suporte total de compartilhamento
+                window.open('https://web.whatsapp.com', '_blank');
+
+                let instructionDiv = document.getElementById('whatsapp-instructions');
+                if (!instructionDiv) {
+                    instructionDiv = document.createElement('div');
+                    instructionDiv.id = 'whatsapp-instructions';
+                    previewCard.insertAdjacentElement('afterend', instructionDiv);
+                }
+                instructionDiv.innerHTML = `
+                    <strong>Instruções:</strong>
+                    <p>Uma nova aba do WhatsApp Web foi aberta.</p>
+                    <p>Por favor, selecione a conversa desejada e arraste as fotos do relatório (ou salve-as e anexe) para enviá-las todas juntas.</p>`;
+                instructionDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function getProductTypeName(type) {
+                const names = { REF: 'Refrigerador', LAV: 'Lavadora', MWO: 'Microondas' };
+                return names[type] || '';
+            }
+            
+            initialize();
+        });
+    </script>
+</body>
+</html>
+
