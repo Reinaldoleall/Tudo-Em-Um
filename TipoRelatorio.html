@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Relatórios</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-gray: #f5f7fa;
+            --dark-gray: #34495e;
+            --text-color: #333;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        
+        h1, h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group { margin-bottom: 20px; }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        input[readonly] { background-color: #ecf0f1; cursor: not-allowed; }
+        
+        .btn {
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn:active { transform: translateY(0); box-shadow: none; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+        
+        .btn-primary { background-color: var(--success-color); color: white; }
+        .btn-primary:hover { background-color: #2ecc71; }
+        .btn-secondary { background-color: var(--primary-color); color: white; }
+        .btn-secondary:hover { background-color: #5dade2; }
+        .btn-tertiary { background-color: #8e44ad; color: white; }
+        .btn-tertiary:hover { background-color: #9b59b6; }
+        .btn-warning { background-color: var(--warning-color); color: white; }
+        .btn-warning:hover { background-color: #f1c40f; }
+        .btn-info { background-color: #7f8c8d; color: white; }
+        .btn-info:hover { background-color: #95a5a6; }
+        .btn-danger { background-color: var(--error-color); color: white; }
+        .btn-danger:hover { background-color: #c0392b; }
+        
+        #resultContainer {
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+        }
+        
+        #reportContent {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        #photosContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .photo-item { position: relative; width: 100%; padding-bottom: 75%; }
+        
+        .photo-thumbnail {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        .photo-thumbnail:hover { transform: scale(1.05); }
+        
+        .remove-photo-btn {
+            position: absolute;
+            top: -10px; right: -10px;
+            width: 28px; height: 28px;
+            background-color: var(--error-color);
+            color: white; border: none; border-radius: 50%;
+            font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s ease; line-height: 1;
+        }
+        .remove-photo-btn:hover { transform: scale(1.1); background-color: #c0392b; }
+        
+        #noPhotosMessage {
+            color: #7f8c8d;
+            font-style: italic;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+        
+        .modal {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        .modal.active { display: flex; }
+        
+        .modal-content {
+            background: white; padding: 25px;
+            border-radius: 10px; max-width: 95%;
+            width: 700px; max-height: 90vh;
+            overflow-y: auto;
+            animation: slide-in 0.3s ease-out;
+        }
+
+        @keyframes slide-in {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        #savedReportsList { list-style: none; }
+        .report-item {
+            background: #f9f9f9; border: 1px solid #eee;
+            border-radius: 8px; padding: 15px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px;
+        }
+        .report-item-info { flex-grow: 1; }
+        .report-item-actions .btn {
+            width: auto; padding: 8px 12px;
+            margin-top: 0; margin-left: 10px; font-size: 14px;
+        }
+
+        .file-input { display: none; }
+        .file-label {
+            display: inline-block; padding: 12px 20px;
+            background-color: var(--primary-color); color: white;
+            border-radius: 8px; cursor: pointer;
+            transition: all 0.3s; font-weight: 600;
+        }
+        .file-label:hover { background-color: #2980b9; }
+        
+        .confirmation-checkbox { display: flex; align-items: center; margin: 15px 0; }
+        .confirmation-checkbox input { width: auto; margin-right: 10px; }
+        
+        .hidden { display: none !important; }
+        
+        /* --- Toast Notifications --- */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast {
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: toast-in 0.5s forwards;
+        }
+        .toast.success { background-color: var(--success-color); }
+        .toast.error { background-color: var(--error-color); }
+        .toast.warning { background-color: var(--warning-color); }
+        .toast.info { background-color: var(--primary-color); }
+
+        @keyframes toast-in { to { opacity: 1; transform: translateY(0); } }
+        @keyframes toast-out { to { opacity: 0; transform: translateY(20px); } }
+
+        @media (max-width: 600px) {
+            .report-item { flex-direction: column; align-items: stretch; }
+            .report-item-actions { display: flex; justify-content: flex-end; width: 100%; margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2></h2>
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" required>
+                <option value="">Selecione...</option>
+                <option value="Venda">Venda</option>
+                <option value="Abordagem e Venda">Abordagem e Venda</option>
+                <option value="Abordagem">Abordagem</option>
+                <option value="Exposição">Exposição</option>
+                <option value="Exposição Ponta de Gôndola">Exposição Ponta de Gôndola</option>
+                <option value="Exposição com Arco/Abordagem">Exposição com Arco/Abordagem</option>
+                <option value="Ação de Edredom">Ação de Edredom</option>
+                <option value="Exposição e Abordagem">Exposição e Abordagem</option>
+                <option value="Exposição Porta de Loja">Exposição Porta de Loja</option>
+                <option value="Blitz">Blitz</option>
+                <option value="Substituição do Selo Inmetro">Substituição do Selo Inmetro</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="rede">Rede:</label>
+            <select id="rede" required>
+                <option value="">Selecione...</option>
+                <option value="Fast Shop">Fast Shop</option>
+                <option value="Carrefour">Carrefour</option>
+                <option value="Lojas Cem">Lojas Cem</option>
+                <option value="Magalu">Magazine Luiza</option>
+                <option value="Sams">Sam's Club</option>
+                <option value="Sipolati">Sipolatti</option>
+                <option value="Catral">Catral</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="id">ID:</label>
+            <input list="idList" id="id" required>
+            <datalist id="idList"></datalist>
+        </div>
+        
+        <div class="form-group">
+            <label for="filial">Filial:</label>
+            <input list="filialList" id="filial" required>
+            <datalist id="filialList"></datalist>
+        </div>
+        
+        <div class="form-group">
+            <label for="cidade">Cidade:</label>
+            <input list="cidadeList" id="cidade" required>
+            <datalist id="cidadeList">
+                <option value="Rio Branco - AC"></option>
+                <option value="Maceió - AL"></option>
+                <option value="Macapá - AP"></option>
+                <option value="Manaus - AM"></option>
+                <option value="Salvador - BA"></option>
+                <option value="Fortaleza - CE"></option>
+                <option value="Brasília - DF"></option>
+                <option value="Vitória - ES"></option>
+                <option value="Goiânia - GO"></option>
+                <option value="São Luís - MA"></option>
+                <option value="Cuiabá - MT"></option>
+                <option value="Campo Grande - MS"></option>
+                <option value="Belo Horizonte - MG"></option>
+                <option value="Belém - PA"></option>
+                <option value="João Pessoa - PB"></option>
+                <option value="Curitiba - PR"></option>
+                <option value="Recife - PE"></option>
+                <option value="Teresina - PI"></option>
+                <option value="Rio de Janeiro - RJ"></option>
+                <option value="Natal - RN"></option>
+                <option value="Porto Alegre - RS"></option>
+                <option value="Porto Velho - RO"></option>
+                <option value="Boa Vista - RR"></option>
+                <option value="Florianópolis - SC"></option>
+                <option value="São Paulo - SP"></option>
+                <option value="Aracaju - SE"></option>
+                <option value="Palmas - TO"></option>
+            </datalist>
+        </div>
+        
+        <div class="form-group">
+            <label for="produto">Produto:</label>
+            <input list="produtoList" id="produto" required>
+            <datalist id="produtoList"></datalist>
+        </div>
+        
+        <div class="form-group">
+            <label for="coordenador">Coordenador:</label>
+            <input type="text" id="coordenador" value="Anderson Duarte" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label for="consultora">Consultora:</label>
+            <input list="consultoraList" id="consultora" required>
+            <datalist id="consultoraList"></datalist>
+        </div>
+        
+        <div class="form-group">
+            <label for="regional">Regional:</label>
+            <input list="regionalList" id="regional" required>
+            <datalist id="regionalList">
+                <option value="SPC"></option>
+                <option value="SPL"></option>
+                <option value="RJC"></option>
+                <option value="BHC"></option>
+                <option value="RCE"></option>
+                <option value="BSB"></option>
+            </datalist>
+        </div>
+        
+        <div class="form-group">
+            <label for="data">Data:</label>
+            <input type="date" id="data" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="observacoes">Observações:</label>
+            <textarea id="observacoes" rows="3"></textarea>
+        </div>
+        
+        <div class="confirmation-checkbox">
+            <input type="checkbox" id="confirmacao" required>
+            <label for="confirmacao">Confirmo que as informações estão corretas</label>
+        </div>
+        
+        <button id="gerarRelatorio" class="btn btn-primary">Gerar Relatório</button>
+        <button id="viewHistoryBtn" class="btn btn-info">Ver Relatórios Salvos</button>
+    </div>
+    
+    <div id="resultContainer" class="container hidden">
+        <pre id="reportContent"></pre>
+    </div>
+    
+    <div class="container">
+        <h2>Fotos (Formato 4:3)</h2>
+        <button id="openCamera" class="btn btn-secondary">📸 Abrir Câmera</button>
+        <div style="text-align: center; margin: 15px 0; color: #7f8c8d;">ou</div>
+        <label for="fileInput" class="file-label" style="width:100%; text-align:center;">📂 Selecionar dos Arquivos</label>
+        
+        <input type="file" id="cameraInput" class="file-input" accept="image/*" capture="environment" multiple>
+        <input type="file" id="fileInput" class="file-input" accept="image/*" multiple>
+        
+        <div id="photosContainer">
+            <p id="noPhotosMessage">Nenhuma foto adicionada.</p>
+        </div>
+    </div>
+    
+    <div id="actionButtons" class="container hidden">
+        <h2>Ações do Relatório</h2>
+        <button id="copyReport" class="btn btn-info">📋 Copiar Texto do Relatório</button>
+        <button id="sharePhotos" class="btn btn-tertiary">🖼️ Compartilhar Apenas Fotos</button>
+        <button id="shareReport" class="btn btn-secondary">🚀 Compartilhar Relatório (Apenas Texto)</button>
+        <button id="saveReport" class="btn btn-warning">💾 Salvar Relatório</button>
+    </div>
+
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <h2>Relatórios Salvos</h2>
+            <ul id="savedReportsList"></ul>
+            <button id="closeHistoryModal" class="btn btn-info" style="width: 100%;">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+    (() => {
+        // --- STATE AND CONSTANTS ---
+        const appState = {
+            photos: [],
+            currentReport: null,
+        };
+
+        const storageKeys = {
+            id: 'historicoIds',
+            filial: 'historicoFiliais',
+            produto: 'historicoProdutos',
+            consultora: 'historicoConsultoras',
+            regional: 'historicoRegionais',
+            reports: 'savedReports_v3'
+        };
+        
+        const formFields = ['tipo', 'rede', 'id', 'filial', 'cidade', 'produto', 'coordenador', 'consultora', 'regional', 'data', 'observacoes'];
+
+        // --- DOM ELEMENT CACHE ---
+        const dom = {};
+        const elementIds = [
+            'resultContainer', 'reportContent', 'actionButtons', 
+            'photosContainer', 'noPhotosMessage', 'fileInput', 'cameraInput',
+            'openCamera', 'saveReport', 'shareReport', 'sharePhotos', 'copyReport', 
+            'gerarRelatorio', 'viewHistoryBtn', 'historyModal', 'closeHistoryModal', 
+            'savedReportsList', 'confirmacao'
+        ];
+        elementIds.forEach(id => dom[id] = document.getElementById(id));
+        formFields.forEach(id => dom[id] = document.getElementById(id));
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            dom.data.valueAsDate = new Date();
+            loadDatalistHistory();
+            setupEventListeners();
+        });
+        
+        // --- TOAST NOTIFICATION ---
+        function showToast(message, type = 'info', duration = 3000) {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'toast-out 0.5s forwards';
+                toast.addEventListener('animationend', () => toast.remove());
+            }, duration);
+        }
+
+        function setupEventListeners() {
+            dom.gerarRelatorio.addEventListener('click', handleGenerateReport);
+            dom.openCamera.addEventListener('click', () => dom.cameraInput.click());
+            dom.fileInput.addEventListener('change', handleFileUpload);
+            dom.cameraInput.addEventListener('change', handleFileUpload);
+            
+            dom.saveReport.addEventListener('click', saveReport);
+            dom.shareReport.addEventListener('click', shareFullReport);
+            dom.sharePhotos.addEventListener('click', sharePhotosOnly);
+            dom.copyReport.addEventListener('click', copyReportText);
+            
+            dom.viewHistoryBtn.addEventListener('click', openHistoryModal);
+            dom.closeHistoryModal.addEventListener('click', closeHistoryModal);
+        }
+
+        // --- FORM AND REPORT LOGIC ---
+        function handleGenerateReport() {
+            if (!dom.confirmacao.checked) {
+                showToast("Por favor, confirme que as informações estão corretas.", "warning");
+                return;
+            }
+
+            const values = {};
+            let isValid = true;
+
+            formFields.forEach(fieldId => {
+                const element = dom[fieldId];
+                element.style.borderColor = '#ddd';
+                const value = element.value.trim();
+                
+                if (element.required && !value) {
+                    isValid = false;
+                    element.style.borderColor = 'var(--error-color)';
+                }
+                values[fieldId] = value;
+            });
+
+            if (!isValid) {
+                showToast("Preencha todos os campos obrigatórios.", "error");
+                return;
+            }
+
+            Object.keys(storageKeys).forEach(field => {
+                if (field !== 'reports' && values[field]) {
+                    saveToDatalistHistory(field, values[field]);
+                }
+            });
+
+            const [year, month, day] = values.data.split('-');
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            const reportLines = [
+                `*Data:* ${formattedDate}`,
+                `*Tipo:* ${values.tipo}`,
+                `*Rede:* ${values.rede}`,
+                `*ID:* ${values.id}`,
+                `*Filial:* ${values.filial}`,
+                `*Cidade:* ${values.cidade}`,
+                `*Produto:* ${values.produto}`,
+                `*Coordenador:* ${values.coordenador}`,
+                `*Consultora:* ${values.consultora}`,
+                `*Regional:* ${values.regional}`,
+                `*Observações:* ${values.observacoes || 'Nenhuma observação'}`
+            ];
+            
+            const reportText = reportLines.join('\n');
+            
+            appState.currentReport = {
+                values,
+                text: reportText,
+                date: new Date().toISOString(),
+                photos: [...appState.photos]
+            };
+            
+            dom.reportContent.textContent = reportText;
+            dom.resultContainer.classList.remove('hidden');
+            dom.actionButtons.classList.remove('hidden');
+            showToast("Relatório gerado com sucesso!", "success");
+            dom.resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- PHOTO MANAGEMENT ---
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            let loadedCount = 0;
+            const totalFiles = files.length;
+            
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+                
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = new Image();
+                    img.onload = () => {
+                        processImageTo4x3(img, (processedData) => {
+                            appState.photos.push(processedData);
+                            loadedCount++;
+                            if (loadedCount === totalFiles) {
+                                renderPhotoGallery();
+                                showToast(`${loadedCount} foto(s) adicionada(s)!`, "success");
+                            }
+                        });
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+            event.target.value = ''; // Reset input
+        }
+
+        function processImageTo4x3(img, callback) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const sourceWidth = img.width;
+            const sourceHeight = img.height;
+            const targetRatio = 4/3;
+            
+            let sourceX = 0, sourceY = 0;
+            let drawWidth = sourceWidth, drawHeight = sourceHeight;
+            
+            if (sourceWidth / sourceHeight > targetRatio) {
+                drawWidth = Math.round(sourceHeight * targetRatio);
+                sourceX = Math.round((sourceWidth - drawWidth) / 2);
+            } else {
+                drawHeight = Math.round(sourceWidth / targetRatio);
+                sourceY = Math.round((sourceHeight - drawHeight) / 2);
+            }
+            
+            const outputWidth = 800;
+            const outputHeight = 600;
+            canvas.width = outputWidth;
+            canvas.height = outputHeight;
+            
+            ctx.drawImage(img, sourceX, sourceY, drawWidth, drawHeight, 0, 0, outputWidth, outputHeight);
+            
+            const processedData = canvas.toDataURL('image/jpeg', 0.85);
+            callback(processedData);
+        }
+
+        function renderPhotoGallery() {
+            dom.photosContainer.innerHTML = '';
+            
+            if (appState.photos.length === 0) {
+                dom.photosContainer.appendChild(dom.noPhotosMessage);
+                dom.noPhotosMessage.classList.remove('hidden');
+                return;
+            }
+            
+            dom.noPhotosMessage.classList.add('hidden');
+            
+            appState.photos.forEach((photoBase64, index) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                
+                const img = document.createElement('img');
+                img.src = photoBase64;
+                img.className = 'photo-thumbnail';
+                img.alt = `Foto ${index + 1}`;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-photo-btn';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.title = 'Remover foto';
+                removeBtn.onclick = () => {
+                    appState.photos.splice(index, 1);
+                    renderPhotoGallery();
+                    showToast("Foto removida.", "warning");
+                };
+                
+                photoItem.appendChild(img);
+                photoItem.appendChild(removeBtn);
+                dom.photosContainer.appendChild(photoItem);
+            });
+        }
+
+        // --- STORAGE & HISTORY ---
+        function getFromStorage(key) {
+            try { return JSON.parse(localStorage.getItem(key) || '[]'); } 
+            catch (e) { return []; }
+        }
+
+        function saveToStorage(key, data) {
+            try { localStorage.setItem(key, JSON.stringify(data)); } 
+            catch (e) { showToast("Erro ao salvar dados localmente.", "error"); }
+        }
+
+        function loadDatalistHistory() {
+            Object.keys(storageKeys).forEach(field => {
+                if (field === 'reports') return;
+                const history = getFromStorage(storageKeys[field]);
+                const datalist = document.getElementById(`${field}List`);
+                if (datalist) {
+                    datalist.innerHTML = history.map(item => `<option value="${item}"></option>`).join('');
+                }
+            });
+        }
+
+        function saveToDatalistHistory(field, value) {
+            const key = storageKeys[field];
+            if (!key || !value) return;
+            let history = getFromStorage(key);
+            history = history.filter(item => item.toLowerCase() !== value.toLowerCase());
+            history.unshift(value);
+            saveToStorage(key, history.slice(0, 20));
+        }
+
+        function saveReport() {
+            if (!appState.currentReport) {
+                showToast("Gere um relatório primeiro.", "warning");
+                return;
+            }
+            const savedReports = getFromStorage(storageKeys.reports);
+            savedReports.unshift(appState.currentReport);
+            saveToStorage(storageKeys.reports, savedReports.slice(0, 50));
+            showToast("Relatório salvo com sucesso!", "success");
+        }
+
+        // --- SHARING FUNCTIONS ---
+        async function shareFullReport() {
+            if (!appState.currentReport) {
+                showToast("Gere um relatório primeiro para compartilhar.", "warning");
+                return;
+            }
+            
+            // Conforme solicitado, esta função agora compartilha APENAS o texto.
+            const shareData = {
+                title: 'Relatório',
+                text: appState.currentReport.text
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                    showToast("Relatório compartilhado!", "success");
+                } else {
+                    // Fallback para navegadores sem suporte: copia o texto.
+                    copyReportText();
+                    showToast("Compartilhamento não suportado. Texto copiado.", "info");
+                }
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    showToast("Erro ao compartilhar o relatório.", "error");
+                }
+            }
+        }
+
+        async function sharePhotosOnly() {
+            if (appState.photos.length === 0) {
+                showToast("Nenhuma foto para compartilhar.", "warning");
+                return;
+            }
+            
+            try {
+                const files = await preparePhotoFiles();
+                if (navigator.share && navigator.canShare({ files })) {
+                    await navigator.share({ files: files, title: 'Fotos do Relatório' });
+                    showToast("Fotos compartilhadas com sucesso!", "success");
+                } else {
+                    showToast("Seu navegador não suporta compartilhamento de arquivos.", "error");
+                }
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    showToast("Erro ao compartilhar fotos.", "error");
+                }
+            }
+        }
+
+        async function preparePhotoFiles() {
+            const files = [];
+            for (let i = 0; i < Math.min(appState.photos.length, 10); i++) {
+                try {
+                    const blob = await (await fetch(appState.photos[i])).blob();
+                    files.push(new File([blob], `foto-${i+1}.jpg`, { type: 'image/jpeg' }));
+                } catch (error) {
+                    console.error("Erro ao processar foto:", error);
+                }
+            }
+            return files;
+        }
+
+        function copyReportText() {
+            if (!appState.currentReport) {
+                showToast("Nenhum relatório para copiar.", "warning");
+                return;
+            }
+            navigator.clipboard.writeText(appState.currentReport.text).then(() => {
+                showToast("Texto do relatório copiado!", "success");
+            }).catch(err => {
+                showToast("Erro ao copiar o texto.", "error");
+            });
+        }
+
+        // --- HISTORY MODAL ---
+        function openHistoryModal() {
+            renderSavedReports();
+            dom.historyModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeHistoryModal() {
+            dom.historyModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function renderSavedReports() {
+            const reports = getFromStorage(storageKeys.reports);
+            dom.savedReportsList.innerHTML = '';
+            
+            if (reports.length === 0) {
+                dom.savedReportsList.innerHTML = '<li><p style="text-align:center; padding: 20px;">Nenhum relatório salvo.</p></li>';
+                return;
+            }
+            
+            reports.forEach((report, index) => {
+                const date = new Date(report.date).toLocaleString('pt-BR');
+                const item = document.createElement('li');
+                item.className = 'report-item';
+                item.innerHTML = `
+                    <div class="report-item-info">
+                        <strong>${report.values.tipo || 'Sem tipo'}: ${report.values.rede || 'Sem rede'}</strong><br>
+                        <small>${report.values.filial || ''} - ${report.values.cidade || ''}</small><br>
+                        <small>Salvo em: ${date}</small>
+                    </div>
+                    <div class="report-item-actions">
+                        <button class="btn btn-secondary load-btn" data-index="${index}">Carregar</button>
+                        <button class="btn btn-danger delete-btn" data-index="${index}">Excluir</button>
+                    </div>
+                `;
+                dom.savedReportsList.appendChild(item);
+            });
+
+            dom.savedReportsList.querySelectorAll('.load-btn').forEach(btn => btn.addEventListener('click', (e) => loadReportFromHistory(parseInt(e.target.dataset.index))));
+            dom.savedReportsList.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', (e) => deleteReportFromHistory(parseInt(e.target.dataset.index))));
+        }
+
+        function loadReportFromHistory(index) {
+            const reports = getFromStorage(storageKeys.reports);
+            const reportToLoad = reports[index];
+            if (!reportToLoad) return;
+            
+            Object.entries(reportToLoad.values).forEach(([field, value]) => {
+                if (dom[field]) dom[field].value = value;
+            });
+            
+            appState.photos = reportToLoad.photos || [];
+            appState.currentReport = reportToLoad;
+            
+            renderPhotoGallery();
+            dom.reportContent.textContent = reportToLoad.text;
+            dom.resultContainer.classList.remove('hidden');
+            dom.actionButtons.classList.remove('hidden');
+            
+            closeHistoryModal();
+            showToast("Relatório carregado com sucesso!", "success");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteReportFromHistory(index) {
+            if (!confirm('Tem certeza que deseja excluir este relatório? Esta ação não pode ser desfeita.')) return;
+            
+            const reports = getFromStorage(storageKeys.reports);
+            reports.splice(index, 1);
+            saveToStorage(storageKeys.reports, reports);
+            
+            renderSavedReports();
+            showToast("Relatório excluído.", "warning");
+        }
+    })();
+    </script>
+</body>
+</html>
